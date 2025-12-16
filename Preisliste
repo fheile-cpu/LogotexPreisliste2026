@@ -1,0 +1,577 @@
+<!-- LOGOTEX PREISLISTE 2026 - SharePoint Native Version -->
+<!-- Einfach den gesamten Code in einen SharePoint Inhaltsbaustein einfügen -->
+
+<style>
+.ltx-preisliste {
+    font-family: Segoe UI, Arial, sans-serif;
+    color: #1a1a2e;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #ffffff;
+}
+
+.ltx-preisliste * { box-sizing: border-box; }
+
+.ltx-header {
+    text-align: center;
+    padding: 30px 20px;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    border-radius: 12px;
+    margin-bottom: 30px;
+}
+
+.ltx-header h1 {
+    color: #E30613;
+    font-size: 2rem;
+    margin: 0 0 10px 0;
+    letter-spacing: 2px;
+}
+
+.ltx-header p {
+    color: #a0a0a0;
+    margin: 0;
+}
+
+.ltx-header .badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #ffd700, #ffaa00);
+    color: #000;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-top: 12px;
+}
+
+.ltx-section {
+    margin-bottom: 40px;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.ltx-section-header {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    color: #fff;
+    padding: 20px 25px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.ltx-section-icon {
+    font-size: 1.8rem;
+}
+
+.ltx-section-header h2 {
+    margin: 0;
+    font-size: 1.4rem;
+    color: #00d4aa;
+}
+
+.ltx-section-header p {
+    margin: 5px 0 0 0;
+    font-size: 0.9rem;
+    color: #a0a0a0;
+}
+
+.ltx-card {
+    padding: 20px;
+    border-bottom: 1px solid #e8e8e8;
+}
+
+.ltx-card:last-child {
+    border-bottom: none;
+}
+
+.ltx-card h3 {
+    color: #1a1a2e;
+    font-size: 1.1rem;
+    margin: 0 0 15px 0;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #00d4aa;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.ltx-badge {
+    background: #e8f5f1;
+    color: #00a080;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: 600;
+}
+
+.ltx-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+}
+
+.ltx-table th {
+    background: #f5f5f5;
+    color: #1a1a2e;
+    padding: 10px 8px;
+    text-align: center;
+    font-weight: 600;
+    border-bottom: 2px solid #00d4aa;
+    white-space: nowrap;
+}
+
+.ltx-table th:first-child {
+    text-align: left;
+}
+
+.ltx-table td {
+    padding: 8px;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+}
+
+.ltx-table td:first-child {
+    text-align: left;
+    font-weight: 500;
+    color: #444;
+}
+
+.ltx-table tr:hover td {
+    background: #f0faf8;
+}
+
+.ltx-table tr:last-child td {
+    border-bottom: none;
+}
+
+.ltx-size {
+    color: #888;
+    font-size: 0.75rem;
+    font-weight: normal;
+}
+
+.ltx-info {
+    background: #e8f5f1;
+    border-left: 4px solid #00d4aa;
+    padding: 15px 20px;
+    margin: 15px 20px 20px 20px;
+    border-radius: 0 8px 8px 0;
+}
+
+.ltx-info strong {
+    color: #00a080;
+}
+
+.ltx-info p {
+    margin: 0;
+    color: #555;
+    font-size: 0.9rem;
+}
+
+.ltx-footer {
+    text-align: center;
+    padding: 25px;
+    background: #f8f8f8;
+    border-radius: 12px;
+    margin-top: 30px;
+}
+
+.ltx-footer p {
+    margin: 5px 0;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.ltx-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    gap: 0;
+}
+
+.ltx-grid .ltx-card {
+    border-right: 1px solid #e8e8e8;
+}
+
+@media (max-width: 768px) {
+    .ltx-table { font-size: 0.75rem; }
+    .ltx-table th, .ltx-table td { padding: 6px 4px; }
+    .ltx-grid { grid-template-columns: 1fr; }
+}
+</style>
+
+<div class="ltx-preisliste">
+    
+    <!-- Header -->
+    <div class="ltx-header">
+        <h1>LOGOTEX EUROPE – PREISLISTE 2026</h1>
+        <p>Alle Preise in Euro netto, zzgl. MwSt.</p>
+        <span class="badge">✨ GÜLTIG AB JANUAR 2026</span>
+    </div>
+    
+    <!-- ==================== WA-TRANSFERS ==================== -->
+    <div class="ltx-section">
+        <div class="ltx-section-header">
+            <span class="ltx-section-icon">🎨</span>
+            <div>
+                <h2>WA-Transfers (Siebdruck)</h2>
+                <p>Wassertransfers für Textildruck – 1-4 Farben möglich</p>
+            </div>
+        </div>
+        
+        <div class="ltx-card">
+            <h3>📋 Grundpreis (1 Farbe) <span class="ltx-badge">EINZELNUTZEN</span></h3>
+            <table class="ltx-table">
+                <tr><th>Format</th><th>10-19</th><th>20-49</th><th>50-99</th><th>100-199</th><th>200-299</th><th>300-499</th><th>500-999</th></tr>
+                <tr><td>WA-178 <span class="ltx-size">(100×100mm)</span></td><td>3,40 €</td><td>3,00 €</td><td>2,60 €</td><td>1,80 €</td><td>1,50 €</td><td>1,20 €</td><td>0,90 €</td></tr>
+                <tr><td>WA-XS <span class="ltx-size">(100×100mm)</span></td><td>4,30 €</td><td>3,90 €</td><td>3,50 €</td><td>2,40 €</td><td>2,10 €</td><td>1,80 €</td><td>1,50 €</td></tr>
+                <tr><td>WA-S <span class="ltx-size">(210×150mm)</span></td><td>5,80 €</td><td>5,40 €</td><td>4,70 €</td><td>3,70 €</td><td>3,00 €</td><td>2,70 €</td><td>2,30 €</td></tr>
+                <tr><td>WA-M <span class="ltx-size">(210×300mm)</span></td><td>7,10 €</td><td>5,90 €</td><td>5,10 €</td><td>4,20 €</td><td>3,60 €</td><td>3,20 €</td><td>2,80 €</td></tr>
+                <tr><td>WA-L <span class="ltx-size">(300×300mm)</span></td><td>7,80 €</td><td>6,40 €</td><td>5,30 €</td><td>4,90 €</td><td>4,40 €</td><td>3,60 €</td><td>3,10 €</td></tr>
+                <tr><td>WA-XL <span class="ltx-size">(220×590mm)</span></td><td>9,80 €</td><td>7,08 €</td><td>6,38 €</td><td>5,68 €</td><td>4,98 €</td><td>4,18 €</td><td>3,58 €</td></tr>
+            </table>
+        </div>
+        
+        <div class="ltx-grid">
+            <div class="ltx-card">
+                <h3>➕ Aufschlag je zusätzliche Farbe</h3>
+                <table class="ltx-table">
+                    <tr><th>Format</th><th>10-19</th><th>20-49</th><th>50-99</th><th>100-199</th><th>200-299</th><th>300-499</th><th>500-999</th></tr>
+                    <tr><td>WA-178</td><td>0,27 €</td><td>0,24 €</td><td>0,23 €</td><td>0,22 €</td><td>0,20 €</td><td>0,18 €</td><td>0,14 €</td></tr>
+                    <tr><td>WA-XS</td><td>0,34 €</td><td>0,31 €</td><td>0,32 €</td><td>0,29 €</td><td>0,27 €</td><td>0,27 €</td><td>0,23 €</td></tr>
+                    <tr><td>WA-S</td><td>0,41 €</td><td>0,38 €</td><td>0,33 €</td><td>0,26 €</td><td>0,27 €</td><td>0,19 €</td><td>0,16 €</td></tr>
+                    <tr><td>WA-M</td><td>0,46 €</td><td>0,41 €</td><td>0,33 €</td><td>0,29 €</td><td>0,25 €</td><td>0,22 €</td><td>0,20 €</td></tr>
+                    <tr><td>WA-L</td><td>0,51 €</td><td>0,45 €</td><td>0,37 €</td><td>0,34 €</td><td>0,31 €</td><td>0,25 €</td><td>0,22 €</td></tr>
+                    <tr><td>WA-XL</td><td>0,64 €</td><td>0,50 €</td><td>0,45 €</td><td>0,40 €</td><td>0,35 €</td><td>0,29 €</td><td>0,25 €</td></tr>
+                </table>
+            </div>
+            
+            <div class="ltx-card">
+                <h3>🔒 Aufschlag Blocker / Nylon / IW-Wasch</h3>
+                <table class="ltx-table">
+                    <tr><th>Format</th><th>10-19</th><th>20-49</th><th>50-99</th><th>100-199</th><th>200-299</th><th>300-499</th><th>500-999</th></tr>
+                    <tr><td>WA-178</td><td>0,37 €</td><td>0,33 €</td><td>0,29 €</td><td>0,20 €</td><td>0,17 €</td><td>0,13 €</td><td>0,10 €</td></tr>
+                    <tr><td>WA-XS</td><td>0,47 €</td><td>0,43 €</td><td>0,39 €</td><td>0,26 €</td><td>0,23 €</td><td>0,21 €</td><td>0,17 €</td></tr>
+                    <tr><td>WA-S</td><td>0,64 €</td><td>0,59 €</td><td>0,52 €</td><td>0,41 €</td><td>0,34 €</td><td>0,30 €</td><td>0,25 €</td></tr>
+                    <tr><td>WA-M</td><td>0,78 €</td><td>0,65 €</td><td>0,56 €</td><td>0,46 €</td><td>0,40 €</td><td>0,35 €</td><td>0,35 €</td></tr>
+                    <tr><td>WA-L</td><td>0,86 €</td><td>0,70 €</td><td>0,58 €</td><td>0,54 €</td><td>0,48 €</td><td>0,40 €</td><td>0,40 €</td></tr>
+                    <tr><td>WA-XL</td><td>1,08 €</td><td>0,98 €</td><td>0,70 €</td><td>0,62 €</td><td>0,55 €</td><td>0,46 €</td><td>0,46 €</td></tr>
+                </table>
+            </div>
+        </div>
+        
+        <div class="ltx-info">
+            <p><strong>💡 Hinweis:</strong> Mindestbestellmenge: 10 Bögen. Bis zu 4 Farben möglich. Aufschläge werden addiert.</p>
+        </div>
+    </div>
+    
+    <!-- ==================== WE-TRANSFERS ==================== -->
+    <div class="ltx-section">
+        <div class="ltx-section-header">
+            <span class="ltx-section-icon">🖨️</span>
+            <div>
+                <h2>WE-Transfers (Digital)</h2>
+                <p>Digitaldruck-Transfers – Einfarbig (W1) oder Mehrfarbig (WE)</p>
+            </div>
+        </div>
+        
+        <div class="ltx-card">
+            <h3>⚪ W1 - Einfarbig <span class="ltx-badge">EINZELNUTZEN</span></h3>
+            <table class="ltx-table">
+                <tr><th>Format</th><th>10-19</th><th>20-49</th><th>50-99</th><th>100-199</th><th>200-299</th><th>300-499</th><th>500-999</th><th>1000-2499</th><th>2500-4999</th><th>5000+</th></tr>
+                <tr><td>W1-XS <span class="ltx-size">(60×50)</span></td><td>2,58 €</td><td>2,38 €</td><td>1,28 €</td><td>0,80 €</td><td>0,55 €</td><td>0,48 €</td><td>0,38 €</td><td>0,25 €</td><td>0,18 €</td><td>0,15 €</td></tr>
+                <tr><td>W1-SM <span class="ltx-size">(100×80)</span></td><td>2,98 €</td><td>2,73 €</td><td>1,60 €</td><td>1,00 €</td><td>0,70 €</td><td>0,63 €</td><td>0,48 €</td><td>0,28 €</td><td>0,23 €</td><td>0,18 €</td></tr>
+                <tr><td>W1-LC <span class="ltx-size">(150×100)</span></td><td>3,40 €</td><td>3,05 €</td><td>1,90 €</td><td>1,20 €</td><td>0,88 €</td><td>0,80 €</td><td>0,55 €</td><td>0,45 €</td><td>0,30 €</td><td>0,23 €</td></tr>
+                <tr><td>W1-A6 <span class="ltx-size">(148×105)</span></td><td>3,80 €</td><td>2,45 €</td><td>1,80 €</td><td>1,20 €</td><td>0,95 €</td><td>0,88 €</td><td>0,80 €</td><td>0,60 €</td><td>0,45 €</td><td>0,35 €</td></tr>
+                <tr><td>W1-A5 <span class="ltx-size">(210×150)</span></td><td>4,55 €</td><td>3,98 €</td><td>2,68 €</td><td>1,78 €</td><td>1,38 €</td><td>1,25 €</td><td>0,95 €</td><td>0,80 €</td><td>0,75 €</td><td>0,70 €</td></tr>
+                <tr><td>W1-A4 <span class="ltx-size">(210×300)</span></td><td>6,48 €</td><td>5,53 €</td><td>4,03 €</td><td>2,73 €</td><td>2,18 €</td><td>2,00 €</td><td>1,75 €</td><td>1,63 €</td><td>1,50 €</td><td>1,43 €</td></tr>
+                <tr><td>W1-SQ <span class="ltx-size">(300×300)</span></td><td>8,23 €</td><td>6,90 €</td><td>5,25 €</td><td>3,58 €</td><td>2,93 €</td><td>2,68 €</td><td>2,53 €</td><td>2,40 €</td><td>2,38 €</td><td>2,33 €</td></tr>
+                <tr><td>W1-A3 <span class="ltx-size">(420×300)</span></td><td>10,38 €</td><td>8,65 €</td><td>6,73 €</td><td>4,63 €</td><td>3,80 €</td><td>3,53 €</td><td>3,30 €</td><td>3,20 €</td><td>3,13 €</td><td>3,08 €</td></tr>
+            </table>
+        </div>
+        
+        <div class="ltx-card">
+            <h3>🌈 WE - Mehrfarbig <span class="ltx-badge">EINZELNUTZEN</span></h3>
+            <table class="ltx-table">
+                <tr><th>Format</th><th>10-19</th><th>20-49</th><th>50-99</th><th>100-199</th><th>200-299</th><th>300-499</th><th>500-999</th><th>1000-2499</th><th>2500-4999</th><th>5000+</th></tr>
+                <tr><td>WE-XS <span class="ltx-size">(60×50)</span></td><td>3,20 €</td><td>2,98 €</td><td>1,60 €</td><td>0,98 €</td><td>0,68 €</td><td>0,58 €</td><td>0,50 €</td><td>0,45 €</td><td>0,28 €</td><td>0,20 €</td></tr>
+                <tr><td>WE-SM <span class="ltx-size">(100×80)</span></td><td>3,73 €</td><td>3,40 €</td><td>1,98 €</td><td>1,25 €</td><td>0,88 €</td><td>0,80 €</td><td>0,68 €</td><td>0,50 €</td><td>0,35 €</td><td>0,23 €</td></tr>
+                <tr><td>WE-LC <span class="ltx-size">(150×100)</span></td><td>4,25 €</td><td>3,80 €</td><td>2,35 €</td><td>1,50 €</td><td>1,13 €</td><td>1,00 €</td><td>0,88 €</td><td>0,58 €</td><td>0,48 €</td><td>0,33 €</td></tr>
+                <tr><td>WE-A6 <span class="ltx-size">(148×105)</span></td><td>4,85 €</td><td>4,20 €</td><td>3,08 €</td><td>1,60 €</td><td>1,25 €</td><td>1,05 €</td><td>0,95 €</td><td>0,65 €</td><td>0,53 €</td><td>0,40 €</td></tr>
+                <tr><td>WE-A5 <span class="ltx-size">(210×150)</span></td><td>5,70 €</td><td>5,00 €</td><td>3,38 €</td><td>2,23 €</td><td>1,73 €</td><td>1,58 €</td><td>1,40 €</td><td>1,20 €</td><td>1,05 €</td><td>0,98 €</td></tr>
+                <tr><td>WE-A4 <span class="ltx-size">(210×300)</span></td><td>8,10 €</td><td>6,88 €</td><td>5,05 €</td><td>3,40 €</td><td>2,75 €</td><td>2,50 €</td><td>2,35 €</td><td>2,05 €</td><td>1,98 €</td><td>1,88 €</td></tr>
+                <tr><td>WE-SQ <span class="ltx-size">(300×300)</span></td><td>10,25 €</td><td>8,65 €</td><td>6,55 €</td><td>4,48 €</td><td>3,65 €</td><td>3,35 €</td><td>3,15 €</td><td>3,03 €</td><td>2,95 €</td><td>2,88 €</td></tr>
+                <tr><td>WE-A3 <span class="ltx-size">(420×300)</span></td><td>12,95 €</td><td>10,80 €</td><td>8,45 €</td><td>5,83 €</td><td>4,78 €</td><td>4,40 €</td><td>4,15 €</td><td>3,98 €</td><td>3,93 €</td><td>3,80 €</td></tr>
+            </table>
+        </div>
+        
+        <div class="ltx-grid">
+            <div class="ltx-card">
+                <h3>📐 W1 - Einfarbig <span class="ltx-badge">MEHRFACHNUTZEN</span></h3>
+                <table class="ltx-table">
+                    <tr><th>Format</th><th>10-19</th><th>20-49</th><th>50-99</th><th>100-199</th><th>200-299</th><th>300-499</th><th>500-999</th><th>1000-2499</th><th>2500-4999</th><th>5000+</th></tr>
+                    <tr><td>A5</td><td>4,55 €</td><td>3,98 €</td><td>2,68 €</td><td>1,78 €</td><td>1,38 €</td><td>1,25 €</td><td>1,15 €</td><td>1,10 €</td><td>1,03 €</td><td>1,00 €</td></tr>
+                    <tr><td>A4</td><td>6,48 €</td><td>5,53 €</td><td>4,03 €</td><td>2,73 €</td><td>2,18 €</td><td>2,00 €</td><td>1,90 €</td><td>1,78 €</td><td>1,73 €</td><td>1,70 €</td></tr>
+                    <tr><td>A3</td><td>10,38 €</td><td>8,65 €</td><td>6,73 €</td><td>4,63 €</td><td>3,80 €</td><td>3,53 €</td><td>3,30 €</td><td>3,20 €</td><td>3,13 €</td><td>3,08 €</td></tr>
+                </table>
+            </div>
+            
+            <div class="ltx-card">
+                <h3>📐 WE - Mehrfarbig <span class="ltx-badge">MEHRFACHNUTZEN</span></h3>
+                <table class="ltx-table">
+                    <tr><th>Format</th><th>10-19</th><th>20-49</th><th>50-99</th><th>100-199</th><th>200-299</th><th>300-499</th><th>500-999</th><th>1000-2499</th><th>2500-4999</th><th>5000+</th></tr>
+                    <tr><td>A5</td><td>5,70 €</td><td>5,00 €</td><td>3,38 €</td><td>2,23 €</td><td>1,73 €</td><td>1,58 €</td><td>1,45 €</td><td>1,35 €</td><td>1,30 €</td><td>1,28 €</td></tr>
+                    <tr><td>A4</td><td>8,10 €</td><td>6,88 €</td><td>5,05 €</td><td>3,40 €</td><td>2,75 €</td><td>2,50 €</td><td>2,35 €</td><td>2,23 €</td><td>2,15 €</td><td>2,13 €</td></tr>
+                    <tr><td>A3</td><td>12,95 €</td><td>10,80 €</td><td>8,45 €</td><td>5,83 €</td><td>4,78 €</td><td>4,40 €</td><td>4,15 €</td><td>3,98 €</td><td>3,93 €</td><td>3,80 €</td></tr>
+                </table>
+            </div>
+        </div>
+        
+        <div class="ltx-info">
+            <p><strong>💡 Hinweis:</strong> Mindestbestellmenge: 10 Bögen. Einfarbig (W1) für kostengünstige Designs, Mehrfarbig (WE) für Fotos und Farbverläufe.</p>
+        </div>
+    </div>
+    
+    <!-- ==================== BL-TRANSFERS ==================== -->
+    <div class="ltx-section">
+        <div class="ltx-section-header">
+            <span class="ltx-section-icon">🔲</span>
+            <div>
+                <h2>BL-Transfers (Blockout)</h2>
+                <p>Transfers mit Blockout-Schicht für dunkle Textilien</p>
+            </div>
+        </div>
+        
+        <div class="ltx-card">
+            <h3>⚪ B1 - Einfarbig <span class="ltx-badge">EINZELNUTZEN</span></h3>
+            <table class="ltx-table">
+                <tr><th>Format</th><th>10-19</th><th>20-49</th><th>50-99</th><th>100-199</th><th>200-299</th><th>300-499</th><th>500-999</th><th>1000-2499</th><th>2500-4999</th><th>5000+</th></tr>
+                <tr><td>B1-XS <span class="ltx-size">(60×50)</span></td><td>2,83 €</td><td>2,60 €</td><td>1,48 €</td><td>0,88 €</td><td>0,63 €</td><td>0,55 €</td><td>0,48 €</td><td>0,30 €</td><td>0,20 €</td><td>0,18 €</td></tr>
+                <tr><td>B1-SM <span class="ltx-size">(100×80)</span></td><td>3,43 €</td><td>3,08 €</td><td>1,93 €</td><td>1,15 €</td><td>0,85 €</td><td>0,78 €</td><td>0,50 €</td><td>0,30 €</td><td>0,25 €</td><td>0,20 €</td></tr>
+                <tr><td>B1-LC <span class="ltx-size">(150×100)</span></td><td>4,03 €</td><td>3,55 €</td><td>2,30 €</td><td>1,43 €</td><td>1,10 €</td><td>0,98 €</td><td>0,63 €</td><td>0,48 €</td><td>0,38 €</td><td>0,38 €</td></tr>
+                <tr><td>B1-A6 <span class="ltx-size">(148×105)</span></td><td>4,10 €</td><td>2,60 €</td><td>2,15 €</td><td>1,38 €</td><td>1,05 €</td><td>0,95 €</td><td>0,90 €</td><td>0,68 €</td><td>0,58 €</td><td>0,50 €</td></tr>
+                <tr><td>B1-A5 <span class="ltx-size">(210×150)</span></td><td>5,58 €</td><td>4,10 €</td><td>3,40 €</td><td>2,15 €</td><td>1,45 €</td><td>1,25 €</td><td>1,18 €</td><td>0,95 €</td><td>0,90 €</td><td>0,80 €</td></tr>
+                <tr><td>B1-A4 <span class="ltx-size">(210×300)</span></td><td>8,15 €</td><td>6,88 €</td><td>5,20 €</td><td>3,30 €</td><td>2,68 €</td><td>2,45 €</td><td>2,33 €</td><td>2,23 €</td><td>2,15 €</td><td>2,13 €</td></tr>
+                <tr><td>B1-SQ <span class="ltx-size">(300×300)</span></td><td>10,48 €</td><td>8,73 €</td><td>6,85 €</td><td>4,40 €</td><td>3,60 €</td><td>3,33 €</td><td>3,13 €</td><td>3,00 €</td><td>2,95 €</td><td>2,88 €</td></tr>
+                <tr><td>B1-A3 <span class="ltx-size">(420×300)</span></td><td>13,40 €</td><td>11,08 €</td><td>8,88 €</td><td>5,75 €</td><td>4,75 €</td><td>4,40 €</td><td>4,13 €</td><td>3,95 €</td><td>3,93 €</td><td>3,80 €</td></tr>
+            </table>
+        </div>
+        
+        <div class="ltx-card">
+            <h3>🌈 BL - Mehrfarbig <span class="ltx-badge">EINZELNUTZEN</span></h3>
+            <table class="ltx-table">
+                <tr><th>Format</th><th>10-19</th><th>20-49</th><th>50-99</th><th>100-199</th><th>200-299</th><th>300-499</th><th>500-999</th><th>1000-2499</th><th>2500-4999</th><th>5000+</th></tr>
+                <tr><td>BL-XS <span class="ltx-size">(60×50)</span></td><td>3,55 €</td><td>3,28 €</td><td>1,85 €</td><td>1,10 €</td><td>0,80 €</td><td>0,68 €</td><td>0,58 €</td><td>0,50 €</td><td>0,30 €</td><td>0,23 €</td></tr>
+                <tr><td>BL-SM <span class="ltx-size">(100×80)</span></td><td>4,28 €</td><td>3,85 €</td><td>2,38 €</td><td>1,45 €</td><td>1,08 €</td><td>0,95 €</td><td>0,85 €</td><td>0,55 €</td><td>0,38 €</td><td>0,25 €</td></tr>
+                <tr><td>BL-LC <span class="ltx-size">(150×100)</span></td><td>5,03 €</td><td>4,43 €</td><td>2,88 €</td><td>1,78 €</td><td>1,35 €</td><td>1,20 €</td><td>1,00 €</td><td>0,63 €</td><td>0,53 €</td><td>0,38 €</td></tr>
+                <tr><td>BL-A6 <span class="ltx-size">(148×105)</span></td><td>6,00 €</td><td>4,43 €</td><td>3,80 €</td><td>2,70 €</td><td>1,50 €</td><td>1,35 €</td><td>1,13 €</td><td>0,90 €</td><td>0,80 €</td><td>0,70 €</td></tr>
+                <tr><td>BL-A5 <span class="ltx-size">(210×150)</span></td><td>6,98 €</td><td>6,00 €</td><td>4,25 €</td><td>2,65 €</td><td>2,13 €</td><td>1,93 €</td><td>1,55 €</td><td>1,25 €</td><td>1,13 €</td><td>1,05 €</td></tr>
+                <tr><td>BL-A4 <span class="ltx-size">(210×300)</span></td><td>10,18 €</td><td>8,60 €</td><td>6,50 €</td><td>4,15 €</td><td>3,38 €</td><td>3,08 €</td><td>2,90 €</td><td>2,78 €</td><td>2,68 €</td><td>2,65 €</td></tr>
+                <tr><td>BL-SQ <span class="ltx-size">(300×300)</span></td><td>14,58 €</td><td>12,15 €</td><td>9,50 €</td><td>6,10 €</td><td>5,00 €</td><td>4,60 €</td><td>4,35 €</td><td>4,18 €</td><td>4,08 €</td><td>4,00 €</td></tr>
+                <tr><td>BL-A3 <span class="ltx-size">(420×300)</span></td><td>16,78 €</td><td>13,85 €</td><td>11,10 €</td><td>7,18 €</td><td>5,93 €</td><td>5,50 €</td><td>5,18 €</td><td>4,95 €</td><td>4,88 €</td><td>4,78 €</td></tr>
+            </table>
+        </div>
+        
+        <div class="ltx-grid">
+            <div class="ltx-card">
+                <h3>📐 B1 - Einfarbig <span class="ltx-badge">MEHRFACHNUTZEN</span></h3>
+                <table class="ltx-table">
+                    <tr><th>Format</th><th>10-19</th><th>20-49</th><th>50-99</th><th>100-199</th><th>200-299</th><th>300-499</th><th>500-999</th><th>1000-2499</th><th>2500-4999</th><th>5000+</th></tr>
+                    <tr><td>A5</td><td>5,65 €</td><td>4,93 €</td><td>3,38 €</td><td>2,25 €</td><td>1,75 €</td><td>1,60 €</td><td>1,48 €</td><td>1,40 €</td><td>1,35 €</td><td>1,33 €</td></tr>
+                    <tr><td>A4</td><td>8,23 €</td><td>6,98 €</td><td>5,15 €</td><td>3,50 €</td><td>2,83 €</td><td>2,58 €</td><td>2,40 €</td><td>2,30 €</td><td>2,23 €</td><td>2,20 €</td></tr>
+                    <tr><td>A3</td><td>13,18 €</td><td>10,98 €</td><td>8,60 €</td><td>5,95 €</td><td>4,85 €</td><td>4,48 €</td><td>4,23 €</td><td>4,08 €</td><td>3,98 €</td><td>3,93 €</td></tr>
+                </table>
+            </div>
+            
+            <div class="ltx-card">
+                <h3>📐 BL - Mehrfarbig <span class="ltx-badge">MEHRFACHNUTZEN</span></h3>
+                <table class="ltx-table">
+                    <tr><th>Format</th><th>10-19</th><th>20-49</th><th>50-99</th><th>100-199</th><th>200-299</th><th>300-499</th><th>500-999</th><th>1000-2499</th><th>2500-4999</th><th>5000+</th></tr>
+                    <tr><td>A5</td><td>7,08 €</td><td>6,18 €</td><td>4,23 €</td><td>2,83 €</td><td>2,20 €</td><td>2,00 €</td><td>1,85 €</td><td>1,75 €</td><td>1,70 €</td><td>1,68 €</td></tr>
+                    <tr><td>A4</td><td>10,25 €</td><td>8,70 €</td><td>6,43 €</td><td>4,38 €</td><td>3,53 €</td><td>3,20 €</td><td>3,03 €</td><td>2,85 €</td><td>2,80 €</td><td>2,75 €</td></tr>
+                    <tr><td>A3</td><td>16,78 €</td><td>13,85 €</td><td>11,10 €</td><td>7,18 €</td><td>5,93 €</td><td>5,50 €</td><td>5,18 €</td><td>4,95 €</td><td>4,88 €</td><td>4,78 €</td></tr>
+                </table>
+            </div>
+        </div>
+        
+        <div class="ltx-info">
+            <p><strong>💡 Hinweis:</strong> Blockout-Transfers sind ideal für dunkle Textilien. Die weiße Blockout-Schicht verhindert das Durchscheinen.</p>
+        </div>
+    </div>
+    
+    <!-- ==================== SB-TRANSFERS ==================== -->
+    <div class="ltx-section">
+        <div class="ltx-section-header">
+            <span class="ltx-section-icon">🧥</span>
+            <div>
+                <h2>SB-Transfers (Softshell-Blocker)</h2>
+                <p>Spezielle Transfers für Softshell und Funktionskleidung</p>
+            </div>
+        </div>
+        
+        <div class="ltx-card">
+            <h3>⚪ S1 - Einfarbig <span class="ltx-badge">EINZELNUTZEN</span></h3>
+            <table class="ltx-table">
+                <tr><th>Format</th><th>10-19</th><th>20-49</th><th>50-99</th><th>100-199</th><th>200-299</th><th>300-499</th><th>500-999</th><th>1000-2499</th><th>2500-4999</th><th>5000+</th></tr>
+                <tr><td>S1-XS <span class="ltx-size">(60×50)</span></td><td>2,83 €</td><td>2,60 €</td><td>1,48 €</td><td>0,88 €</td><td>0,63 €</td><td>0,55 €</td><td>0,50 €</td><td>0,30 €</td><td>0,20 €</td><td>0,18 €</td></tr>
+                <tr><td>S1-SM <span class="ltx-size">(100×80)</span></td><td>3,43 €</td><td>3,08 €</td><td>1,93 €</td><td>1,15 €</td><td>0,85 €</td><td>0,78 €</td><td>0,50 €</td><td>0,30 €</td><td>0,25 €</td><td>0,20 €</td></tr>
+                <tr><td>S1-LC <span class="ltx-size">(150×100)</span></td><td>4,03 €</td><td>3,55 €</td><td>2,30 €</td><td>1,43 €</td><td>1,10 €</td><td>0,98 €</td><td>0,63 €</td><td>0,48 €</td><td>0,38 €</td><td>0,30 €</td></tr>
+                <tr><td>S1-A6 <span class="ltx-size">(148×105)</span></td><td>4,10 €</td><td>2,60 €</td><td>2,15 €</td><td>1,38 €</td><td>1,05 €</td><td>0,95 €</td><td>0,90 €</td><td>0,68 €</td><td>0,58 €</td><td>0,50 €</td></tr>
+                <tr><td>S1-A5 <span class="ltx-size">(210×150)</span></td><td>5,58 €</td><td>4,10 €</td><td>3,40 €</td><td>2,15 €</td><td>1,70 €</td><td>1,50 €</td><td>1,18 €</td><td>0,95 €</td><td>0,90 €</td><td>0,80 €</td></tr>
+                <tr><td>S1-A4 <span class="ltx-size">(210×300)</span></td><td>8,15 €</td><td>6,88 €</td><td>5,20 €</td><td>3,30 €</td><td>2,68 €</td><td>2,45 €</td><td>2,33 €</td><td>2,23 €</td><td>2,15 €</td><td>2,13 €</td></tr>
+                <tr><td>S1-SQ <span class="ltx-size">(300×300)</span></td><td>10,48 €</td><td>8,73 €</td><td>6,85 €</td><td>4,40 €</td><td>3,60 €</td><td>3,33 €</td><td>3,13 €</td><td>3,00 €</td><td>2,95 €</td><td>2,88 €</td></tr>
+                <tr><td>S1-A3 <span class="ltx-size">(420×300)</span></td><td>13,40 €</td><td>11,08 €</td><td>8,88 €</td><td>5,75 €</td><td>4,75 €</td><td>4,40 €</td><td>4,13 €</td><td>3,95 €</td><td>3,93 €</td><td>3,80 €</td></tr>
+            </table>
+        </div>
+        
+        <div class="ltx-card">
+            <h3>🌈 SB - Mehrfarbig <span class="ltx-badge">EINZELNUTZEN</span></h3>
+            <table class="ltx-table">
+                <tr><th>Format</th><th>10-19</th><th>20-49</th><th>50-99</th><th>100-199</th><th>200-299</th><th>300-499</th><th>500-999</th><th>1000-2499</th><th>2500-4999</th><th>5000+</th></tr>
+                <tr><td>SB-XS <span class="ltx-size">(60×50)</span></td><td>3,55 €</td><td>3,28 €</td><td>1,85 €</td><td>1,10 €</td><td>0,80 €</td><td>0,68 €</td><td>0,58 €</td><td>0,50 €</td><td>0,30 €</td><td>0,23 €</td></tr>
+                <tr><td>SB-SM <span class="ltx-size">(100×80)</span></td><td>4,28 €</td><td>3,85 €</td><td>2,38 €</td><td>1,45 €</td><td>1,08 €</td><td>0,95 €</td><td>0,85 €</td><td>0,55 €</td><td>0,38 €</td><td>0,25 €</td></tr>
+                <tr><td>SB-LC <span class="ltx-size">(150×100)</span></td><td>5,03 €</td><td>4,43 €</td><td>2,88 €</td><td>1,78 €</td><td>1,35 €</td><td>1,20 €</td><td>1,00 €</td><td>0,63 €</td><td>0,53 €</td><td>0,38 €</td></tr>
+                <tr><td>SB-A6 <span class="ltx-size">(148×105)</span></td><td>6,00 €</td><td>4,43 €</td><td>3,80 €</td><td>2,70 €</td><td>1,50 €</td><td>1,35 €</td><td>1,13 €</td><td>0,90 €</td><td>0,80 €</td><td>0,70 €</td></tr>
+                <tr><td>SB-A5 <span class="ltx-size">(210×150)</span></td><td>6,98 €</td><td>6,00 €</td><td>4,25 €</td><td>2,65 €</td><td>2,13 €</td><td>1,93 €</td><td>1,55 €</td><td>1,25 €</td><td>1,13 €</td><td>1,05 €</td></tr>
+                <tr><td>SB-A4 <span class="ltx-size">(210×300)</span></td><td>10,18 €</td><td>8,60 €</td><td>6,50 €</td><td>4,15 €</td><td>3,38 €</td><td>3,08 €</td><td>2,90 €</td><td>2,78 €</td><td>2,68 €</td><td>2,65 €</td></tr>
+                <tr><td>SB-SQ <span class="ltx-size">(300×300)</span></td><td>14,58 €</td><td>12,15 €</td><td>9,50 €</td><td>6,10 €</td><td>5,00 €</td><td>4,60 €</td><td>4,35 €</td><td>4,18 €</td><td>4,08 €</td><td>4,00 €</td></tr>
+                <tr><td>SB-A3 <span class="ltx-size">(420×300)</span></td><td>16,78 €</td><td>13,85 €</td><td>11,10 €</td><td>7,18 €</td><td>5,93 €</td><td>5,50 €</td><td>5,18 €</td><td>4,95 €</td><td>4,88 €</td><td>4,78 €</td></tr>
+            </table>
+        </div>
+        
+        <div class="ltx-grid">
+            <div class="ltx-card">
+                <h3>📐 S1 - Einfarbig <span class="ltx-badge">MEHRFACHNUTZEN</span></h3>
+                <table class="ltx-table">
+                    <tr><th>Format</th><th>10-19</th><th>20-49</th><th>50-99</th><th>100-199</th><th>200-299</th><th>300-499</th><th>500-999</th><th>1000-2499</th><th>2500-4999</th><th>5000+</th></tr>
+                    <tr><td>A5</td><td>5,58 €</td><td>4,10 €</td><td>3,40 €</td><td>2,15 €</td><td>1,70 €</td><td>1,53 €</td><td>1,43 €</td><td>1,35 €</td><td>1,30 €</td><td>1,28 €</td></tr>
+                    <tr><td>A4</td><td>8,15 €</td><td>6,88 €</td><td>5,20 €</td><td>3,30 €</td><td>2,68 €</td><td>2,45 €</td><td>2,33 €</td><td>2,23 €</td><td>2,15 €</td><td>2,13 €</td></tr>
+                    <tr><td>A3</td><td>13,40 €</td><td>11,08 €</td><td>8,88 €</td><td>5,75 €</td><td>4,75 €</td><td>4,40 €</td><td>4,13 €</td><td>3,95 €</td><td>3,93 €</td><td>3,80 €</td></tr>
+                </table>
+            </div>
+            
+            <div class="ltx-card">
+                <h3>📐 SB - Mehrfarbig <span class="ltx-badge">MEHRFACHNUTZEN</span></h3>
+                <table class="ltx-table">
+                    <tr><th>Format</th><th>10-19</th><th>20-49</th><th>50-99</th><th>100-199</th><th>200-299</th><th>300-499</th><th>500-999</th><th>1000-2499</th><th>2500-4999</th><th>5000+</th></tr>
+                    <tr><td>A5</td><td>6,98 €</td><td>6,00 €</td><td>4,25 €</td><td>2,65 €</td><td>2,13 €</td><td>1,93 €</td><td>1,78 €</td><td>1,70 €</td><td>1,63 €</td><td>1,60 €</td></tr>
+                    <tr><td>A4</td><td>10,18 €</td><td>8,60 €</td><td>6,50 €</td><td>4,15 €</td><td>3,38 €</td><td>3,08 €</td><td>2,90 €</td><td>2,78 €</td><td>2,68 €</td><td>2,65 €</td></tr>
+                    <tr><td>A3</td><td>16,78 €</td><td>13,85 €</td><td>11,10 €</td><td>7,18 €</td><td>5,93 €</td><td>5,50 €</td><td>5,18 €</td><td>4,95 €</td><td>4,88 €</td><td>4,78 €</td></tr>
+                </table>
+            </div>
+        </div>
+        
+        <div class="ltx-info">
+            <p><strong>💡 Hinweis:</strong> Softshell-Blocker Transfers haften optimal auf elastischen Materialien wie Softshell-Jacken und Funktionskleidung.</p>
+        </div>
+    </div>
+    
+    <!-- ==================== IW-TRANSFERS ==================== -->
+    <div class="ltx-section">
+        <div class="ltx-section-header">
+            <span class="ltx-section-icon">🏭</span>
+            <div>
+                <h2>IW-Transfers (Industrial Wash)</h2>
+                <p>Hochbeständige Transfers für Arbeitskleidung – waschbar bis 60°C</p>
+            </div>
+        </div>
+        
+        <div class="ltx-card">
+            <h3>⚪ IW1 - Einfarbig <span class="ltx-badge">EINZELNUTZEN</span></h3>
+            <table class="ltx-table">
+                <tr><th>Format</th><th>10-19</th><th>20-49</th><th>50-99</th><th>100-199</th><th>200-299</th><th>300-499</th><th>500-999</th><th>1000-2499</th><th>2500+</th></tr>
+                <tr><td>IW1-XS <span class="ltx-size">(60×50)</span></td><td>2,28 €</td><td>1,48 €</td><td>1,08 €</td><td>0,85 €</td><td>0,73 €</td><td>0,68 €</td><td>0,65 €</td><td>0,63 €</td><td>0,60 €</td></tr>
+                <tr><td>IW1-SM <span class="ltx-size">(100×80)</span></td><td>3,80 €</td><td>2,45 €</td><td>1,78 €</td><td>1,40 €</td><td>1,23 €</td><td>1,15 €</td><td>1,08 €</td><td>1,05 €</td><td>1,00 €</td></tr>
+                <tr><td>IW1-LC <span class="ltx-size">(150×100)</span></td><td>4,08 €</td><td>2,85 €</td><td>2,18 €</td><td>1,83 €</td><td>1,65 €</td><td>1,55 €</td><td>1,50 €</td><td>1,43 €</td><td>1,40 €</td></tr>
+                <tr><td>IW1-A5 <span class="ltx-size">(210×150)</span></td><td>5,13 €</td><td>3,73 €</td><td>2,70 €</td><td>2,20 €</td><td>2,00 €</td><td>1,90 €</td><td>1,78 €</td><td>1,70 €</td><td>1,65 €</td></tr>
+                <tr><td>IW1-A4 <span class="ltx-size">(210×300)</span></td><td>6,23 €</td><td>4,70 €</td><td>3,33 €</td><td>2,80 €</td><td>2,55 €</td><td>2,43 €</td><td>2,30 €</td><td>2,20 €</td><td>2,18 €</td></tr>
+                <tr><td>IW1-A3 <span class="ltx-size">(420×300)</span></td><td>9,25 €</td><td>7,38 €</td><td>5,30 €</td><td>4,48 €</td><td>4,18 €</td><td>3,98 €</td><td>3,85 €</td><td>3,80 €</td><td>3,73 €</td></tr>
+            </table>
+        </div>
+        
+        <div class="ltx-card">
+            <h3>🌈 IW - Mehrfarbig <span class="ltx-badge">EINZELNUTZEN</span></h3>
+            <table class="ltx-table">
+                <tr><th>Format</th><th>10-19</th><th>20-49</th><th>50-99</th><th>100-199</th><th>200-299</th><th>300-499</th><th>500-999</th><th>1000-2499</th><th>2500+</th></tr>
+                <tr><td>IW-XS <span class="ltx-size">(60×50)</span></td><td>3,50 €</td><td>2,28 €</td><td>1,65 €</td><td>1,30 €</td><td>1,13 €</td><td>1,05 €</td><td>1,00 €</td><td>0,98 €</td><td>0,95 €</td></tr>
+                <tr><td>IW-SM <span class="ltx-size">(100×80)</span></td><td>5,85 €</td><td>3,78 €</td><td>2,75 €</td><td>2,15 €</td><td>1,90 €</td><td>1,78 €</td><td>1,65 €</td><td>1,60 €</td><td>1,55 €</td></tr>
+                <tr><td>IW-LC <span class="ltx-size">(150×100)</span></td><td>6,28 €</td><td>4,40 €</td><td>3,35 €</td><td>2,80 €</td><td>2,53 €</td><td>2,38 €</td><td>2,30 €</td><td>2,18 €</td><td>2,15 €</td></tr>
+                <tr><td>IW-A6 <span class="ltx-size">(148×105)</span></td><td>7,33 €</td><td>5,25 €</td><td>3,88 €</td><td>3,88 €</td><td>3,20 €</td><td>2,85 €</td><td>2,60 €</td><td>2,48 €</td><td>2,43 €</td></tr>
+                <tr><td>IW-A5 <span class="ltx-size">(210×150)</span></td><td>7,88 €</td><td>5,75 €</td><td>4,18 €</td><td>3,40 €</td><td>3,05 €</td><td>2,93 €</td><td>2,73 €</td><td>2,60 €</td><td>2,53 €</td></tr>
+                <tr><td>IW-A4 <span class="ltx-size">(210×300)</span></td><td>9,58 €</td><td>7,25 €</td><td>5,13 €</td><td>4,30 €</td><td>3,95 €</td><td>3,73 €</td><td>3,53 €</td><td>3,40 €</td><td>3,33 €</td></tr>
+                <tr><td>IW-A3 <span class="ltx-size">(420×300)</span></td><td>14,23 €</td><td>11,35 €</td><td>8,18 €</td><td>6,88 €</td><td>6,43 €</td><td>6,13 €</td><td>5,93 €</td><td>5,83 €</td><td>5,73 €</td></tr>
+            </table>
+        </div>
+        
+        <div class="ltx-card">
+            <h3>🔲 IWB - Mit Blocker <span class="ltx-badge">EINZELNUTZEN</span></h3>
+            <table class="ltx-table">
+                <tr><th>Format</th><th>10-19</th><th>20-49</th><th>50-99</th><th>100-199</th><th>200-299</th><th>300-499</th><th>500-999</th><th>1000-2499</th><th>2500+</th></tr>
+                <tr><td>IWB-XS <span class="ltx-size">(60×50)</span></td><td>4,20 €</td><td>2,73 €</td><td>1,98 €</td><td>1,58 €</td><td>1,35 €</td><td>1,28 €</td><td>1,20 €</td><td>1,15 €</td><td>1,10 €</td></tr>
+                <tr><td>IWB-SM <span class="ltx-size">(100×80)</span></td><td>7,03 €</td><td>4,53 €</td><td>3,30 €</td><td>2,60 €</td><td>2,28 €</td><td>2,13 €</td><td>1,98 €</td><td>1,93 €</td><td>1,88 €</td></tr>
+                <tr><td>IWB-LC <span class="ltx-size">(150×100)</span></td><td>7,53 €</td><td>5,28 €</td><td>4,03 €</td><td>3,35 €</td><td>3,03 €</td><td>2,85 €</td><td>2,75 €</td><td>2,63 €</td><td>2,60 €</td></tr>
+                <tr><td>IWB-A6 <span class="ltx-size">(148×105)</span></td><td>9,15 €</td><td>6,55 €</td><td>4,85 €</td><td>4,85 €</td><td>4,03 €</td><td>3,58 €</td><td>3,25 €</td><td>3,10 €</td><td>3,05 €</td></tr>
+                <tr><td>IWB-A5 <span class="ltx-size">(210×150)</span></td><td>9,45 €</td><td>6,88 €</td><td>5,00 €</td><td>4,08 €</td><td>3,68 €</td><td>3,50 €</td><td>3,28 €</td><td>3,13 €</td><td>3,03 €</td></tr>
+                <tr><td>IWB-A4 <span class="ltx-size">(210×300)</span></td><td>11,50 €</td><td>8,70 €</td><td>6,15 €</td><td>5,15 €</td><td>4,73 €</td><td>4,48 €</td><td>4,25 €</td><td>4,08 €</td><td>4,00 €</td></tr>
+                <tr><td>IWB-A3 <span class="ltx-size">(420×300)</span></td><td>17,08 €</td><td>13,60 €</td><td>9,80 €</td><td>8,25 €</td><td>7,73 €</td><td>7,35 €</td><td>7,10 €</td><td>7,00 €</td><td>6,85 €</td></tr>
+            </table>
+        </div>
+        
+        <div class="ltx-info">
+            <p><strong>💡 Hinweis:</strong> Industrial Wash Transfers halten industrielle Waschvorgänge bis 60°C stand. Ideal für Berufskleidung und Workwear.</p>
+        </div>
+    </div>
+    
+    <!-- ==================== HW-TRANSFERS ==================== -->
+    <div class="ltx-section">
+        <div class="ltx-section-header">
+            <span class="ltx-section-icon">🧢</span>
+            <div>
+                <h2>HW-Transfers (Headwear)</h2>
+                <p>Spezielle Transfers für Caps, Mützen und Kopfbedeckungen</p>
+            </div>
+        </div>
+        
+        <div class="ltx-card">
+            <h3>⚪ HW - Einfarbig <span class="ltx-badge">EINZELNUTZEN</span></h3>
+            <table class="ltx-table">
+                <tr><th>Format</th><th>10-19</th><th>20-49</th><th>50-99</th><th>100-199</th><th>200-299</th><th>300-499</th><th>500-999</th><th>1000-2499</th><th>2500-4999</th><th>5000+</th></tr>
+                <tr><td>HW-CAP-SM <span class="ltx-size">(148×75mm)</span></td><td>4,53 €</td><td>3,78 €</td><td>1,83 €</td><td>1,23 €</td><td>0,93 €</td><td>0,78 €</td><td>0,75 €</td><td>0,68 €</td><td>0,65 €</td><td>0,60 €</td></tr>
+                <tr><td>HW-CAP-LG <span class="ltx-size">(200×75mm)</span></td><td>4,85 €</td><td>4,03 €</td><td>2,05 €</td><td>1,45 €</td><td>1,15 €</td><td>1,05 €</td><td>0,98 €</td><td>0,93 €</td><td>0,88 €</td><td>0,85 €</td></tr>
+            </table>
+        </div>
+        
+        <div class="ltx-card">
+            <h3>🔲 HWB - Mit Blocker <span class="ltx-badge">EINZELNUTZEN</span></h3>
+            <table class="ltx-table">
+                <tr><th>Format</th><th>10-19</th><th>20-49</th><th>50-99</th><th>100-199</th><th>200-299</th><th>300-499</th><th>500-999</th><th>1000-2499</th><th>2500-4999</th><th>5000+</th></tr>
+                <tr><td>HWB-CAP-SM <span class="ltx-size">(148×75mm)</span></td><td>5,65 €</td><td>4,73 €</td><td>2,30 €</td><td>1,53 €</td><td>1,15 €</td><td>0,98 €</td><td>0,93 €</td><td>0,85 €</td><td>0,78 €</td><td>0,75 €</td></tr>
+                <tr><td>HWB-CAP-LG <span class="ltx-size">(200×75mm)</span></td><td>6,05 €</td><td>5,05 €</td><td>2,58 €</td><td>1,83 €</td><td>1,45 €</td><td>1,30 €</td><td>1,23 €</td><td>1,15 €</td><td>1,08 €</td><td>1,05 €</td></tr>
+            </table>
+        </div>
+        
+        <div class="ltx-card">
+            <h3>📐 HW - Mehrfachnutzen <span class="ltx-badge">BOGEN A3</span></h3>
+            <table class="ltx-table">
+                <tr><th>Format</th><th>10-19</th><th>20-49</th><th>50-99</th><th>100-199</th><th>200-299</th><th>300-499</th><th>500-999</th><th>1000-2499</th><th>2500-4999</th><th>5000+</th></tr>
+                <tr><td>A3 <span class="ltx-size">(420×300mm)</span></td><td>16,10 €</td><td>13,43 €</td><td>10,70 €</td><td>7,70 €</td><td>6,50 €</td><td>6,08 €</td><td>5,78 €</td><td>5,60 €</td><td>5,50 €</td><td>5,40 €</td></tr>
+            </table>
+        </div>
+        
+        <div class="ltx-info">
+            <p><strong>💡 Hinweis:</strong> Headwear-Transfers sind speziell für gekrümmte Oberflächen von Caps und Mützen entwickelt. Flexibel und dehnbar.</p>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <div class="ltx-footer">
+        <p><strong>Logotex Europe</strong> – Ihr Partner für Transferdruck</p>
+        <p>Alle Preise in Euro netto, zzgl. 19% MwSt. | Mindestbestellmenge: 10 Bögen | Versandkostenfrei ab 100 € netto</p>
+        <p style="margin-top: 10px; font-size: 0.85rem; color: #888;">Stand: Januar 2026 | Irrtümer und Preisänderungen vorbehalten</p>
+    </div>
+    
+</div>
+
+<!-- Ende LOGOTEX PREISLISTE 2026 -->
