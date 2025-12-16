@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Logotex Preislisten-Konfigurator 2026</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #0a0a0f;
+      --bg-card: #12121a;
+      --bg-input: #1a1a24;
+      --accent: #00d4aa;
+      --accent-dim: #00d4aa33;
+      --text: #ffffff;
+      --text-dim: #8888aa;
+      --border: #2a2a3a;
+      --warning: #ff6b6b;
+      --success: #00d4aa;
+      --gold: #ffd700;
+      --red: #E30613;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg-dark); color: var(--text); min-height: 100vh; line-height: 1.6; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 40px 20px; }
+    header { text-align: center; margin-bottom: 40px; }
+    .logo { max-width: 280px; height: auto; margin-bottom: 15px; }
+    h1 { font-size: clamp(1.6rem, 4vw, 2.2rem); font-weight: 700; background: linear-gradient(135deg, var(--accent), #00ff88); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 10px; }
+    .subtitle { color: var(--text-dim); font-size: 1rem; }
+    .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 30px; margin-bottom: 25px; }
+    .card.highlight { border-color: var(--accent-dim); box-shadow: 0 0 40px var(--accent-dim); }
+    .tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 25px; }
+    .tab { padding: 10px 18px; background: var(--bg-input); border: 2px solid var(--border); border-radius: 10px; color: var(--text-dim); font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: all 0.3s ease; }
+    .tab:hover { border-color: var(--accent); }
+    .tab.active { background: var(--accent); border-color: var(--accent); color: var(--bg-dark); }
+    .grid { display: grid; gap: 25px; }
+    @media(min-width: 900px) { .grid.cols-2 { grid-template-columns: 1.2fr 1fr; } }
+    .title { font-size: 1.2rem; font-weight: 700; color: var(--accent); margin-bottom: 8px; }
+    .subtitle-small { font-size: 0.9rem; color: var(--text-dim); margin-bottom: 20px; }
+    label { display: block; margin-bottom: 8px; color: var(--text-dim); font-size: 0.9rem; }
+    input[type="number"], select { width: 100%; padding: 14px 18px; background: var(--bg-input); border: 1px solid var(--border); border-radius: 10px; color: var(--text); font-family: 'Space Mono', monospace; font-size: 1rem; transition: all 0.3s ease; }
+    input[type="number"]:focus, select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-dim); }
+    select option { background: var(--bg-card); color: var(--text); }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; }
+    @media(max-width: 500px) { .row { grid-template-columns: 1fr; } }
+    .options-row { display: flex; gap: 12px; flex-wrap: wrap; margin: 15px 0; }
+    .option-badge { display: flex; align-items: center; gap: 8px; padding: 10px 16px; background: var(--bg-input); border: 1px solid var(--border); border-radius: 8px; cursor: pointer; transition: all 0.3s ease; font-size: 0.9rem; }
+    .option-badge:hover { border-color: var(--accent); }
+    .option-badge input { accent-color: var(--accent); width: 18px; height: 18px; }
+    .option-badge.checked { border-color: var(--accent); background: var(--accent-dim); }
+    .btn { padding: 14px 30px; border: none; border-radius: 10px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; }
+    .btn-primary { background: var(--accent); color: var(--bg-dark); }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px var(--accent-dim); }
+    .btn-secondary { background: var(--bg-input); color: var(--text); border: 1px solid var(--border); }
+    .btn-secondary:hover { border-color: var(--accent); }
+    .action-buttons { display: flex; gap: 15px; margin-top: 25px; flex-wrap: wrap; }
+    .summary-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 15px; }
+    .badge { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; background: var(--bg-input); border: 1px solid var(--border); border-radius: 20px; font-size: 0.85rem; color: var(--text-dim); }
+    .totals { display: flex; flex-direction: column; gap: 12px; }
+    .totals .line { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 0.95rem; }
+    .totals .line:last-child { border-bottom: none; }
+    .totals .line span { color: var(--text-dim); }
+    .totals .line strong { font-family: 'Space Mono', monospace; color: var(--text); }
+    .totals .line.total { padding-top: 15px; margin-top: 5px; border-top: 2px solid var(--accent); border-bottom: none; }
+    .totals .line.total span { font-size: 1.1rem; font-weight: 600; color: var(--text); }
+    .totals .line.total strong { font-size: 1.5rem; color: var(--gold); }
+    .shipping-display { padding: 14px 18px; background: var(--bg-input); border: 1px solid var(--border); border-radius: 10px; font-family: 'Space Mono', monospace; font-size: 0.95rem; text-align: center; }
+    .shipping-display.free { border-color: var(--success); color: var(--success); }
+    .shipping-display.paid { border-color: var(--warning); color: var(--warning); }
+    .breakdown { background: var(--bg-dark); border: 1px solid var(--border); border-radius: 10px; padding: 20px; font-family: 'Space Mono', monospace; font-size: 0.85rem; line-height: 1.8; white-space: pre-wrap; color: var(--text-dim); max-height: 350px; overflow-y: auto; }
+    .product-fields { display: none; }
+    .product-fields.active { display: block; }
+    @media(max-width: 600px) {
+      .container { padding: 20px 15px; }
+      .card { padding: 20px; }
+      .tabs { gap: 6px; }
+      .tab { padding: 8px 12px; font-size: 0.8rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="configRoot">
+    <header>
+      <img class="logo" src="https://logotex-europe.com/media/e0/a5/50/1732028911/Logotex%20Europe%20Schriftzug.png" alt="Logotex Europe"/>
+      <h1>Preislisten-Konfigurator 2026</h1>
+      <p class="subtitle">WE · BL · SB · IW · HW Transfers</p>
+    </header>
+
+    <div class="card highlight">
+      <div class="tabs" id="tabs">
+        <button class="tab active" data-tab="WE">🖨️ WE-Transfers</button>
+        <button class="tab" data-tab="BL">🔲 BL-Transfers</button>
+        <button class="tab" data-tab="SB">🧥 SB-Transfers</button>
+        <button class="tab" data-tab="IW">🏭 IW-Transfers</button>
+        <button class="tab" data-tab="HW">🧢 HW-Transfers</button>
+        <button class="tab" data-tab="DTF">🎯 DTF-Transfers</button>
+        <button class="tab" data-tab="SR">✨ SR-Transfers</button>
+      </div>
+
+      <div class="grid cols-2">
+        <div>
+          <div class="title">Einstellungen</div>
+          <div class="subtitle-small">Wähle Produkt, Format und Menge</div>
+
+          <!-- WE Felder -->
+          <div id="we-fields" class="product-fields active">
+            <div class="row">
+              <div><label for="weType">Typ</label><select id="weType"><option value="W1">Einfarbig (W1)</option><option value="MF">Mehrfarbig (WE)</option></select></div>
+              <div><label for="weNutzen">Nutzung</label><select id="weNutzen"><option value="E">Einzelnutzen</option><option value="M">Mehrfachnutzen</option></select></div>
+            </div>
+            <div class="row">
+              <div><label for="weSize">Format / Größe</label><select id="weSize"></select></div>
+              <div><label for="weQty">Menge (Stück)</label><input id="weQty" type="number" min="10" step="1" value="100" /></div>
+            </div>
+            <div class="row">
+              <div><label for="weDiscount">Rabatt (%)</label><input id="weDiscount" type="number" min="0" max="100" step="0.5" value="0" /></div>
+              <div></div>
+            </div>
+          </div>
+
+          <!-- BL Felder -->
+          <div id="bl-fields" class="product-fields">
+            <div class="row">
+              <div><label for="blType">Typ</label><select id="blType"><option value="B1">Einfarbig (B1)</option><option value="MF">Mehrfarbig (BL)</option></select></div>
+              <div><label for="blNutzen">Nutzung</label><select id="blNutzen"><option value="E">Einzelnutzen</option><option value="M">Mehrfachnutzen</option></select></div>
+            </div>
+            <div class="row">
+              <div><label for="blSize">Format / Größe</label><select id="blSize"></select></div>
+              <div><label for="blQty">Menge (Stück)</label><input id="blQty" type="number" min="10" step="1" value="100" /></div>
+            </div>
+            <div class="row">
+              <div><label for="blDiscount">Rabatt (%)</label><input id="blDiscount" type="number" min="0" max="100" step="0.5" value="0" /></div>
+              <div></div>
+            </div>
+          </div>
+
+          <!-- SB Felder -->
+          <div id="sb-fields" class="product-fields">
+            <div class="row">
+              <div><label for="sbType">Typ</label><select id="sbType"><option value="S1">Einfarbig (S1)</option><option value="MF">Mehrfarbig (SB)</option></select></div>
+              <div><label for="sbNutzen">Nutzung</label><select id="sbNutzen"><option value="E">Einzelnutzen</option><option value="M">Mehrfachnutzen</option></select></div>
+            </div>
+            <div class="row">
+              <div><label for="sbSize">Format / Größe</label><select id="sbSize"></select></div>
+              <div><label for="sbQty">Menge (Stück)</label><input id="sbQty" type="number" min="10" step="1" value="100" /></div>
+            </div>
+            <div class="row">
+              <div><label for="sbDiscount">Rabatt (%)</label><input id="sbDiscount" type="number" min="0" max="100" step="0.5" value="0" /></div>
+              <div></div>
+            </div>
+          </div>
+
+          <!-- IW Felder -->
+          <div id="iw-fields" class="product-fields">
+            <div class="row">
+              <div><label for="iwType">Typ</label><select id="iwType"><option value="IW1">Einfarbig (IW1)</option><option value="MF">Mehrfarbig (IW)</option><option value="BL">Mit Blocker (IWB)</option></select></div>
+              <div><label for="iwSize">Format / Größe</label><select id="iwSize"></select></div>
+            </div>
+            <div class="row">
+              <div><label for="iwQty">Menge (Stück)</label><input id="iwQty" type="number" min="20" step="1" value="100" /></div>
+              <div><label for="iwDiscount">Rabatt (%)</label><input id="iwDiscount" type="number" min="0" max="100" step="0.5" value="0" /></div>
+            </div>
+          </div>
+
+          <!-- HW Felder -->
+          <div id="hw-fields" class="product-fields">
+            <div class="row">
+              <div><label for="hwType">Typ</label><select id="hwType"><option value="HW">Einfarbig (HW)</option><option value="HWB">Mit Blocker (HWB)</option><option value="M">Mehrfachnutzen (A3)</option></select></div>
+              <div><label for="hwSize">Format / Größe</label><select id="hwSize"></select></div>
+            </div>
+            <div class="row">
+              <div><label for="hwQty">Menge (Stück)</label><input id="hwQty" type="number" min="10" step="1" value="100" /></div>
+              <div><label for="hwDiscount">Rabatt (%)</label><input id="hwDiscount" type="number" min="0" max="100" step="0.5" value="0" /></div>
+            </div>
+          </div>
+
+          <!-- DTF Felder -->
+          <div id="dtf-fields" class="product-fields">
+            <div class="row">
+              <div><label for="dtfSize">Format / Größe</label><select id="dtfSize"></select></div>
+              <div><label for="dtfQty">Menge (Stück)</label><input id="dtfQty" type="number" min="1" step="1" value="10" /></div>
+            </div>
+            <div class="row">
+              <div><label for="dtfDiscount">Rabatt (%)</label><input id="dtfDiscount" type="number" min="0" max="100" step="0.5" value="0" /></div>
+              <div></div>
+            </div>
+          </div>
+
+          <!-- SR Felder -->
+          <div id="sr-fields" class="product-fields">
+            <div class="row">
+              <div><label for="srNutzen">Nutzung</label><select id="srNutzen"><option value="E">Einzelnutzen</option><option value="M">Mehrfachnutzen</option></select></div>
+              <div><label for="srSize">Format / Größe</label><select id="srSize"></select></div>
+            </div>
+            <div class="row">
+              <div><label for="srQty">Menge (Stück)</label><input id="srQty" type="number" min="10" step="1" value="100" /></div>
+              <div><label for="srDiscount">Rabatt (%)</label><input id="srDiscount" type="number" min="0" max="100" step="0.5" value="0" /></div>
+            </div>
+          </div>
+
+          <!-- MwSt & Versand -->
+          <div class="row" style="margin-top:20px;">
+            <div><label for="vat">MwSt-Satz</label><input id="vat" type="number" step="0.01" value="0.19" /></div>
+            <div><label>Versandkosten</label><div class="shipping-display" id="shippingInfo">8,50 € (frei ab 100 €)</div></div>
+          </div>
+
+          <div class="action-buttons">
+            <button class="btn btn-primary" id="btnCalc">Berechnen</button>
+            <button class="btn btn-secondary" id="btnPDF">PDF Export</button>
+          </div>
+        </div>
+
+        <div>
+          <div class="title">Zusammenfassung</div>
+          <div class="subtitle-small">Preisübersicht für deine Auswahl</div>
+          <div class="card" style="background: var(--bg-input); margin-bottom: 20px;">
+            <div class="summary-badges" id="summaryBadges"></div>
+            <div class="totals">
+              <div class="line"><span>Preis pro Stück (netto)</span><strong id="unitPrice">–</strong></div>
+              <div class="line"><span>Zwischensumme (netto)</span><strong id="subNet">–</strong></div>
+              <div class="line"><span>Versand (netto)</span><strong id="shipNet">–</strong></div>
+              <div class="line"><span>MwSt.</span><strong id="vatAmt">–</strong></div>
+              <div class="line total"><span>Gesamt (brutto)</span><strong id="totalGross">–</strong></div>
+            </div>
+          </div>
+          <div class="title" style="font-size: 1rem;">Berechnungsdetails</div>
+          <div class="breakdown" id="breakdown">Wähle ein Produkt und klicke auf "Berechnen"</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ===================== KONSTANTEN & UTILS =====================
+    const VAT_DEFAULT = 0.19;
+    const SHIPPING = 8.5;
+    const FREE_SHIP = 100;
+    const eur = (n) => Number(n||0).toLocaleString("de-DE",{style:"currency",currency:"EUR"});
+
+    // Staffel-Index (10 Stufen: 10-19, 20-49, 50-99, 100-199, 200-299, 300-499, 500-999, 1000-2499, 2500-4999, 5000+)
+    function getIdx10(q) {
+      if(q<20) return 0;
+      if(q<50) return 1;
+      if(q<100) return 2;
+      if(q<200) return 3;
+      if(q<300) return 4;
+      if(q<500) return 5;
+      if(q<1000) return 6;
+      if(q<2500) return 7;
+      if(q<5000) return 8;
+      return 9;
+    }
+
+    // Staffel-Index für IW (9 Stufen: 20-49, 50-99, ... 5000+)
+    function getIdxIW(q) {
+      if(q<50) return 0;
+      if(q<100) return 1;
+      if(q<200) return 2;
+      if(q<300) return 3;
+      if(q<500) return 4;
+      if(q<1000) return 5;
+      if(q<2500) return 6;
+      if(q<5000) return 7;
+      return 8;
+    }
+
+    // ===================== WE-TRANSFERS DATEN (aus Excel) =====================
+    // W1 = Einfarbig, WE = Mehrfarbig
+    const W1_E_SIZES = [
+      {id:"W1_XS", label:"W1-XS (40×40mm)"},
+      {id:"W1_SM", label:"W1-SM (60×60mm)"},
+      {id:"W1_LC", label:"W1-LC (100×100mm)"},
+      {id:"W1_A6", label:"W1-A6 (150×105mm)"},
+      {id:"W1_A5", label:"W1-A5 (210×150mm)"},
+      {id:"W1_A4", label:"W1-A4 (210×300mm)"},
+      {id:"W1_SQ", label:"W1-SQ (300×300mm)"},
+      {id:"W1_A3", label:"W1-A3 (420×300mm)"}
+    ];
+    // Preise für W1 Einfarbig Einzelnutzen (muss noch ergänzt werden falls Excel vorhanden)
+    const W1_E_PR = {
+      W1_XS: [2.575,2.375,1.275,0.8,0.55,0.475,0.375,0.25,0.175,0.15],
+      W1_SM: [2.975,2.725,1.6,1.0,0.7,0.625,0.475,0.275,0.225,0.175],
+      W1_LC: [3.4,3.05,1.9,1.2,0.875,0.8,0.55,0.45,0.3,0.225],
+      W1_A6: [3.8,2.45,1.8,1.2,0.95,0.875,0.8,0.6,0.45,0.35],
+      W1_A5: [4.55,3.975,2.675,1.775,1.375,1.25,0.95,0.8,0.75,0.7],
+      W1_A4: [6.475,5.525,4.025,2.725,2.175,2.0,1.75,1.625,1.5,1.425],
+      W1_SQ: [8.225,6.9,5.25,3.575,2.925,2.675,2.525,2.4,2.375,2.325],
+      W1_A3: [10.375,8.65,6.725,4.625,3.8,3.525,3.3,3.2,3.125,3.075]
+    };
+    const W1_M_SIZES = [{id:"A5",label:"A5 (210×150mm)"},{id:"A4",label:"A4 (210×300mm)"},{id:"A3",label:"A3 (420×300mm)"}];
+    const W1_M_PR = {
+      A5: [4.55,3.975,2.675,1.775,1.375,1.25,1.15,1.1,1.025,1.0],
+      A4: [6.475,5.525,4.025,2.725,2.175,2.0,1.9,1.775,1.725,1.7],
+      A3: [10.375,8.65,6.725,4.625,3.8,3.525,3.3,3.2,3.125,3.075]
+    };
+
+    // WE Mehrfarbig aus Excel WE-TRANSFERS_mehrfarbig.xlsx
+    const WE_MF_E_SIZES = [
+      {id:"WE_XS", label:"WE-XS (40×40mm)"},
+      {id:"WE_SM", label:"WE-SM (60×60mm)"},
+      {id:"WE_LC", label:"WE-LC (100×100mm)"},
+      {id:"WE_A6", label:"WE-A6 (150×105mm)"},
+      {id:"WE_A5", label:"WE-A5 (210×150mm)"},
+      {id:"WE_A4", label:"WE-A4 (210×300mm)"},
+      {id:"WE_SQ", label:"WE-SQ (300×300mm)"},
+      {id:"WE_A3", label:"WE-A3 (420×300mm)"}
+    ];
+    const WE_MF_E_PR = {
+      WE_XS: [3.2,2.975,1.6,0.975,0.675,0.575,0.5,0.45,0.275,0.2],
+      WE_SM: [3.725,3.4,1.975,1.25,0.875,0.8,0.675,0.5,0.35,0.225],
+      WE_LC: [4.25,3.8,2.35,1.5,1.125,1.0,0.875,0.575,0.475,0.325],
+      WE_A6: [4.85,4.2,3.075,1.6,1.25,1.05,0.95,0.65,0.525,0.4],
+      WE_A5: [5.7,5.0,3.375,2.225,1.725,1.575,1.4,1.2,1.05,0.975],
+      WE_A4: [8.1,6.875,5.05,3.4,2.75,2.5,2.35,2.05,1.975,1.875],
+      WE_SQ: [10.25,8.65,6.55,4.475,3.65,3.35,3.15,3.025,2.95,2.875],
+      WE_A3: [12.95,10.8,8.45,5.825,4.775,4.4,4.15,3.975,3.925,3.8]
+    };
+    const WE_MF_M_SIZES = [{id:"A5",label:"A5 (210×150mm)"},{id:"A4",label:"A4 (210×300mm)"},{id:"A3",label:"A3 (420×300mm)"}];
+    const WE_MF_M_PR = {
+      A5: [5.7,5.0,3.375,2.225,1.725,1.575,1.45,1.35,1.3,1.275],
+      A4: [8.1,6.875,5.05,3.4,2.75,2.5,2.35,2.225,2.15,2.125],
+      A3: [12.95,10.8,8.45,5.825,4.775,4.4,4.15,3.975,3.925,3.8]
+    };
+
+    // ===================== BL-TRANSFERS DATEN (aus Excel) =====================
+    // B1 = Einfarbig aus BL-TRANSFERS_einfarbig.xlsx
+    const BL_B1_E_SIZES = [
+      {id:"B1_XS", label:"B1-XS (40×40mm)"},
+      {id:"B1_SM", label:"B1-SM (60×60mm)"},
+      {id:"B1_LC", label:"B1-LC (100×100mm)"},
+      {id:"B1_A6", label:"B1-A6 (150×105mm)"},
+      {id:"B1_A5", label:"B1-A5 (210×150mm)"},
+      {id:"B1_A4", label:"B1-A4 (210×300mm)"},
+      {id:"B1_SQ", label:"B1-SQ (300×300mm)"},
+      {id:"B1_A3", label:"B1-A3 (420×300mm)"}
+    ];
+    const BL_B1_E_PR = {
+      B1_XS: [2.825,2.6,1.475,0.875,0.625,0.55,0.475,0.3,0.2,0.175],
+      B1_SM: [3.425,3.075,1.925,1.15,0.85,0.775,0.5,0.3,0.25,0.2],
+      B1_LC: [4.025,3.55,2.3,1.425,1.1,0.975,0.625,0.475,0.375,0.375],
+      B1_A6: [4.1,2.6,2.15,1.375,1.05,0.95,0.9,0.675,0.575,0.5],
+      B1_A5: [5.575,4.1,3.4,2.15,1.45,1.25,1.175,0.95,0.9,0.8],
+      B1_A4: [8.15,6.875,5.2,3.3,2.675,2.45,2.325,2.225,2.15,2.125],
+      B1_SQ: [10.475,8.725,6.85,4.4,3.6,3.325,3.125,3.0,2.95,2.875],
+      B1_A3: [13.4,11.075,8.875,5.75,4.75,4.4,4.125,3.95,3.925,3.8]
+    };
+    const BL_B1_M_SIZES = [{id:"A5",label:"A5 (210×150mm)"},{id:"A4",label:"A4 (210×300mm)"},{id:"A3",label:"A3 (420×300mm)"}];
+    const BL_B1_M_PR = {
+      A5: [5.65,4.925,3.375,2.25,1.75,1.6,1.475,1.4,1.35,1.325],
+      A4: [8.225,6.975,5.15,3.5,2.825,2.575,2.4,2.3,2.225,2.2],
+      A3: [13.175,10.975,8.6,5.95,4.85,4.475,4.225,4.075,3.975,3.925]
+    };
+
+    // BL Mehrfarbig aus BL-TRANSFERS_mehrfarbig.xlsx
+    const BL_MF_E_SIZES = [
+      {id:"BL_XS", label:"BL-XS (40×40mm)"},
+      {id:"BL_SM", label:"BL-SM (60×60mm)"},
+      {id:"BL_LC", label:"BL-LC (100×100mm)"},
+      {id:"BL_A6", label:"BL-A6 (150×105mm)"},
+      {id:"BL_A5", label:"BL-A5 (210×150mm)"},
+      {id:"BL_A4", label:"BL-A4 (210×300mm)"},
+      {id:"BL_SQ", label:"BL-SQ (300×300mm)"},
+      {id:"BL_A3", label:"BL-A3 (420×300mm)"}
+    ];
+    const BL_MF_E_PR = {
+      BL_XS: [3.55,3.275,1.85,1.1,0.8,0.675,0.575,0.5,0.3,0.225],
+      BL_SM: [4.275,3.85,2.375,1.45,1.075,0.95,0.85,0.55,0.375,0.25],
+      BL_LC: [5.025,4.425,2.875,1.775,1.35,1.2,1.0,0.625,0.525,0.375],
+      BL_A6: [6.0,4.425,3.8,2.7,1.5,1.35,1.125,0.9,0.8,0.7],
+      BL_A5: [6.975,6.0,4.25,2.65,2.125,1.925,1.55,1.25,1.125,1.05],
+      BL_A4: [10.175,8.6,6.5,4.15,3.375,3.075,2.9,2.775,2.675,2.65],
+      BL_SQ: [14.575,12.15,9.5,6.1,5.0,4.6,4.35,4.175,4.075,4.0],
+      BL_A3: [16.775,13.85,11.1,7.175,5.925,5.5,5.175,4.95,4.875,4.775]
+    };
+    const BL_MF_M_SIZES = [{id:"A5",label:"A5 (210×150mm)"},{id:"A4",label:"A4 (210×300mm)"},{id:"A3",label:"A3 (420×300mm)"}];
+    const BL_MF_M_PR = {
+      A5: [7.075,6.175,4.225,2.825,2.2,2.0,1.85,1.75,1.7,1.675],
+      A4: [10.25,8.7,6.425,4.375,3.525,3.2,3.025,2.85,2.8,2.75],
+      A3: [16.775,13.85,11.1,7.175,5.925,5.5,5.175,4.95,4.875,4.775]
+    };
+
+    // ===================== SB-TRANSFERS DATEN (aus Excel) =====================
+    // S1 = Einfarbig aus SB-TRANSFERS_einfarbig.xlsx
+    const SB_S1_E_SIZES = [
+      {id:"S1_XS", label:"S1-XS (40×40mm)"},
+      {id:"S1_SM", label:"S1-SM (60×60mm)"},
+      {id:"S1_LC", label:"S1-LC (100×100mm)"},
+      {id:"S1_A6", label:"S1-A6 (150×105mm)"},
+      {id:"S1_A5", label:"S1-A5 (210×150mm)"},
+      {id:"S1_A4", label:"S1-A4 (210×300mm)"},
+      {id:"S1_SQ", label:"S1-SQ (300×300mm)"},
+      {id:"S1_A3", label:"S1-A3 (420×300mm)"}
+    ];
+    const SB_S1_E_PR = {
+      S1_XS: [2.825,2.6,1.475,0.875,0.625,0.55,0.5,0.3,0.2,0.175],
+      S1_SM: [3.425,3.075,1.925,1.15,0.85,0.775,0.5,0.3,0.25,0.2],
+      S1_LC: [4.025,3.55,2.3,1.425,1.1,0.975,0.625,0.475,0.375,0.3],
+      S1_A6: [4.1,2.6,2.15,1.375,1.05,0.95,0.9,0.675,0.575,0.5],
+      S1_A5: [5.575,4.1,3.4,2.15,1.7,1.5,1.175,0.95,0.9,0.8],
+      S1_A4: [8.15,6.875,5.2,3.3,2.675,2.45,2.325,2.225,2.15,2.125],
+      S1_SQ: [10.475,8.725,6.85,4.4,3.6,3.325,3.125,3.0,2.95,2.875],
+      S1_A3: [13.4,11.075,8.875,5.75,4.75,4.4,4.125,3.95,3.925,3.8]
+    };
+    const SB_S1_M_SIZES = [{id:"A5",label:"A5 (210×150mm)"},{id:"A4",label:"A4 (210×300mm)"},{id:"A3",label:"A3 (420×300mm)"}];
+    const SB_S1_M_PR = {
+      A5: [5.575,4.1,3.4,2.15,1.7,1.525,1.425,1.35,1.3,1.275],
+      A4: [8.15,6.875,5.2,3.3,2.675,2.45,2.325,2.225,2.15,2.125],
+      A3: [13.4,11.075,8.875,5.75,4.75,4.4,4.125,3.95,3.925,3.8]
+    };
+
+    // SB Mehrfarbig aus SB-TRANSFERS_mehrfarbig.xlsx
+    const SB_MF_E_SIZES = [
+      {id:"SB_XS", label:"SB-XS (40×40mm)"},
+      {id:"SB_SM", label:"SB-SM (60×60mm)"},
+      {id:"SB_LC", label:"SB-LC (100×100mm)"},
+      {id:"SB_A6", label:"SB-A6 (150×105mm)"},
+      {id:"SB_A5", label:"SB-A5 (210×150mm)"},
+      {id:"SB_A4", label:"SB-A4 (210×300mm)"},
+      {id:"SB_SQ", label:"SB-SQ (300×300mm)"},
+      {id:"SB_A3", label:"SB-A3 (420×300mm)"}
+    ];
+    const SB_MF_E_PR = {
+      SB_XS: [3.55,3.275,1.85,1.1,0.8,0.675,0.575,0.5,0.3,0.225],
+      SB_SM: [4.275,3.85,2.375,1.45,1.075,0.95,0.85,0.55,0.375,0.25],
+      SB_LC: [5.025,4.425,2.875,1.775,1.35,1.2,1.0,0.625,0.525,0.375],
+      SB_A6: [6.0,4.425,3.8,2.7,1.5,1.35,1.125,0.9,0.8,0.7],
+      SB_A5: [6.975,6.0,4.25,2.65,2.125,1.925,1.55,1.25,1.125,1.05],
+      SB_A4: [10.175,8.6,6.5,4.15,3.375,3.075,2.9,2.775,2.675,2.65],
+      SB_SQ: [14.575,12.15,9.5,6.1,5.0,4.6,4.35,4.175,4.075,4.0],
+      SB_A3: [16.775,13.85,11.1,7.175,5.925,5.5,5.175,4.95,4.875,4.775]
+    };
+    const SB_MF_M_SIZES = [{id:"A5",label:"A5 (210×150mm)"},{id:"A4",label:"A4 (210×300mm)"},{id:"A3",label:"A3 (420×300mm)"}];
+    const SB_MF_M_PR = {
+      A5: [6.975,6.0,4.25,2.65,2.125,1.925,1.775,1.7,1.625,1.6],
+      A4: [10.175,8.6,6.5,4.15,3.375,3.075,2.9,2.775,2.675,2.65],
+      A3: [16.775,13.85,11.1,7.175,5.925,5.5,5.175,4.95,4.875,4.775]
+    };
+
+    // ===================== IW-TRANSFERS DATEN (aus Excel) =====================
+    // IW1 Einfarbig aus IW-TRANSFERS_einfarbig.xlsx (startet bei 20-49!)
+    const IW_E_SIZES = [
+      {id:"IW1_XS", label:"IW1-XS (40×40mm)"},
+      {id:"IW1_SM", label:"IW1-SM (60×60mm)"},
+      {id:"IW1_LC", label:"IW1-LC (100×100mm)"},
+      {id:"IW1_A5", label:"IW1-A5 (210×150mm)"},
+      {id:"IW1_A4", label:"IW1-A4 (210×300mm)"},
+      {id:"IW1_A3", label:"IW1-A3 (420×300mm)"}
+    ];
+    const IW_E_PR = {
+      IW1_XS: [2.275,1.475,1.075,0.85,0.725,0.675,0.65,0.625,0.6],
+      IW1_SM: [3.8,2.45,1.775,1.4,1.225,1.15,1.075,1.05,1.0],
+      IW1_LC: [4.075,2.85,2.175,1.825,1.65,1.55,1.5,1.425,1.4],
+      IW1_A5: [5.125,3.725,2.7,2.2,2.0,1.9,1.775,1.7,1.65],
+      IW1_A4: [6.225,4.7,3.325,2.8,2.55,2.425,2.3,2.2,2.175],
+      IW1_A3: [9.25,7.375,5.3,4.475,4.175,3.975,3.85,3.8,3.725]
+    };
+
+    // IW Mehrfarbig aus IW-TRANSFERS_mehrfarbig.xlsx (startet bei 20-49!)
+    const IW_MF_SIZES = [
+      {id:"IW_XS", label:"IW-XS (40×40mm)"},
+      {id:"IW_SM", label:"IW-SM (60×60mm)"},
+      {id:"IW_LC", label:"IW-LC (100×100mm)"},
+      {id:"IW_A6", label:"IW-A6 (150×105mm)"},
+      {id:"IW_A5", label:"IW-A5 (210×150mm)"},
+      {id:"IW_A4", label:"IW-A4 (210×300mm)"},
+      {id:"IW_A3", label:"IW-A3 (420×300mm)"}
+    ];
+    const IW_MF_PR = {
+      IW_XS: [3.5,2.275,1.65,1.3,1.125,1.05,1.0,0.975,0.95],
+      IW_SM: [5.85,3.775,2.75,2.15,1.9,1.775,1.65,1.6,1.55],
+      IW_LC: [6.275,4.4,3.35,2.8,2.525,2.375,2.3,2.175,2.15],
+      IW_A6: [7.325,5.25,3.875,3.875,3.2,2.85,2.6,2.475,2.425],
+      IW_A5: [7.875,5.75,4.175,3.4,3.05,2.925,2.725,2.6,2.525],
+      IW_A4: [9.575,7.25,5.125,4.3,3.95,3.725,3.525,3.4,3.325],
+      IW_A3: [14.225,11.35,8.175,6.875,6.425,6.125,5.925,5.825,5.725]
+    };
+
+    // IWB Mit Blocker aus IWB-TRANSFERS_.xlsx (startet bei 20-49!)
+    const IW_BL_SIZES = [
+      {id:"IB_XS", label:"IWB-XS (40×40mm)"},
+      {id:"IB_SM", label:"IWB-SM (60×60mm)"},
+      {id:"IB_LC", label:"IWB-LC (100×100mm)"},
+      {id:"IB_A6", label:"IWB-A6 (150×105mm)"},
+      {id:"IB_A5", label:"IWB-A5 (210×150mm)"},
+      {id:"IB_A4", label:"IWB-A4 (210×300mm)"},
+      {id:"IB_A3", label:"IWB-A3 (420×300mm)"}
+    ];
+    const IW_BL_PR = {
+      IB_XS: [4.2,2.725,1.975,1.575,1.35,1.275,1.2,1.15,1.1],
+      IB_SM: [7.025,4.525,3.3,2.6,2.275,2.125,1.975,1.925,1.875],
+      IB_LC: [7.525,5.275,4.025,3.35,3.025,2.85,2.75,2.625,2.6],
+      IB_A6: [9.15,6.55,4.85,4.85,4.025,3.575,3.25,3.1,3.05],
+      IB_A5: [9.45,6.875,5.0,4.075,3.675,3.5,3.275,3.125,3.025],
+      IB_A4: [11.5,8.7,6.15,5.15,4.725,4.475,4.25,4.075,4.0],
+      IB_A3: [17.075,13.6,9.8,8.25,7.725,7.35,7.1,7.0,6.85]
+    };
+
+    // ===================== HW-TRANSFERS DATEN (aus Excel) =====================
+    // HW Einfarbig aus HW_Transfere.xlsx
+    const HW_E_SIZES = [
+      {id:"HW_CAP_SM", label:"HW-CAP-SM (60×60mm)"},
+      {id:"HW_CAP_LG", label:"HW-CAP-LG (120×60mm)"}
+    ];
+    const HW_E_PR = {
+      HW_CAP_SM: [4.525,3.775,1.825,1.225,0.925,0.775,0.75,0.675,0.65,0.6],
+      HW_CAP_LG: [4.85,4.025,2.05,1.45,1.15,1.05,0.975,0.925,0.875,0.85]
+    };
+
+    // HWB Mit Blocker aus HWB_Transfere.xlsx
+    const HWB_E_SIZES = [
+      {id:"HW_BLOCK_SM", label:"HWB-SM (60×60mm)"},
+      {id:"HW_BLOCK_LG", label:"HWB-LG (120×60mm)"}
+    ];
+    const HWB_E_PR = {
+      HW_BLOCK_SM: [5.65,4.725,2.3,1.525,1.15,0.975,0.925,0.85,0.775,0.75],
+      HW_BLOCK_LG: [6.05,5.05,2.575,1.825,1.45,1.3,1.225,1.15,1.075,1.05]
+    };
+
+    // HW Mehrfachnutzen aus HW_Transfere.xlsx
+    const HW_M_SIZES = [{id:"A3", label:"A3 (420×300mm)"}];
+    const HW_M_PR = {
+      A3: [16.1,13.425,10.7,7.7,6.5,6.075,5.775,5.6,5.5,5.4]
+    };
+
+    // ===================== DTF-TRANSFERS DATEN (aus Excel) =====================
+    // DTF aus DTF_Transfere.xlsx - Staffeln: 1-2, 3-9, 10-19, 20-49, 50+
+    const DTF_SIZES = [
+      {id:"DTF_M", label:"DTF-M (150×260mm)"},
+      {id:"DTF_L", label:"DTF-L (390×210mm)"},
+      {id:"DTF_XL", label:"DTF-XL (390×300mm)"},
+      {id:"DTF_2XL", label:"DTF-2XL (780×500mm)"},
+      {id:"DTF_3XL", label:"DTF-3XL (780×1000mm)"}
+    ];
+    const DTF_PR = {
+      DTF_M: [2.95,2.95,2.95,2.95,2.95],
+      DTF_L: [3.35,3.35,3.35,3.35,3.35],
+      DTF_XL: [3.95,3.95,3.95,3.95,3.95],
+      DTF_2XL: [10.075,9.95,9.775,9.425,8.725],
+      DTF_3XL: [20.15,19.9,19.55,18.85,17.45]
+    };
+    // DTF Staffel-Index (5 Stufen: 1-2, 3-9, 10-19, 20-49, 50+)
+    function getIdxDTF(q) {
+      if(q<=2) return 0;
+      if(q<=9) return 1;
+      if(q<=19) return 2;
+      if(q<=49) return 3;
+      return 4;
+    }
+
+    // ===================== SR-TRANSFERS DATEN (aus Excel) =====================
+    // SR SupaReflective aus SR-TRANSFERS_einfarbig.xlsx
+    // Staffeln: 10-19, 20-49, 50-99, 100-199, 200-499, 500-749, 750-999, 1000-2499, 2500-4999, 5000+
+    const SR_E_SIZES = [
+      {id:"SR_XS", label:"SR-XS (40×40mm)"},
+      {id:"SR_SM", label:"SR-SM (60×60mm)"},
+      {id:"SR_LC", label:"SR-LC (100×100mm)"},
+      {id:"SR_A6", label:"SR-A6 (150×105mm)"},
+      {id:"SR_A5", label:"SR-A5 (210×150mm)"},
+      {id:"SR_A4", label:"SR-A4 (210×300mm)"},
+      {id:"SR_SQ", label:"SR-SQ (300×300mm)"},
+      {id:"SR_A3", label:"SR-A3 (420×300mm)"}
+    ];
+    const SR_E_PR = {
+      SR_XS: [5.025,4.075,2.375,2.05,1.775,1.5,1.375,1.275,1.2,1.2],
+      SR_SM: [5.675,4.6,2.975,2.6,2.375,2.05,1.975,1.9,1.825,1.775],
+      SR_LC: [6.2,5.025,3.575,3.35,3.2,2.925,2.875,2.775,2.725,2.7],
+      SR_A6: [7.15,5.8,4.075,3.7,3.475,3.2,3.1,2.95,2.85,2.8],
+      SR_A5: [8.25,6.675,4.675,4.125,3.8,3.55,3.375,3.2,3.075,2.975],
+      SR_A4: [9.85,7.975,6.025,5.3,4.75,4.525,4.4,4.225,4.175,4.05],
+      SR_SQ: [12.4,10.025,7.775,6.875,6.25,5.95,5.775,5.675,5.6,5.525],
+      SR_A3: [14.875,12.05,9.5,8.425,7.725,7.35,7.175,7.125,7.05,7.025]
+    };
+    const SR_M_SIZES = [{id:"A5",label:"A5 (210×150mm)"},{id:"A4",label:"A4 (210×300mm)"},{id:"A3",label:"A3 (420×300mm)"}];
+    const SR_M_PR = {
+      A5: [9.875,8.0,5.6,4.95,4.575,4.25,4.05,3.85,3.7,3.575],
+      A4: [11.825,9.575,7.25,6.35,5.7,5.45,5.275,5.075,4.975,4.9],
+      A3: [17.85,14.475,11.4,10.125,9.275,8.85,8.625,8.525,8.475,8.425]
+    };
+    // SR Staffel-Index (10 Stufen mit anderer Verteilung: 200-499 statt 200-299/300-499)
+    function getIdxSR(q) {
+      if(q<20) return 0;
+      if(q<50) return 1;
+      if(q<100) return 2;
+      if(q<200) return 3;
+      if(q<500) return 4;
+      if(q<750) return 5;
+      if(q<1000) return 6;
+      if(q<2500) return 7;
+      if(q<5000) return 8;
+      return 9;
+    }
+
+    // ===================== UI INITIALISIERUNG =====================
+    document.addEventListener("DOMContentLoaded", () => {
+      let currentTab = "WE";
+      
+      const tabs = document.querySelectorAll("#tabs .tab");
+      const allFields = document.querySelectorAll(".product-fields");
+      
+      // Fill WE sizes
+      const weSize = document.getElementById("weSize");
+      const weType = document.getElementById("weType");
+      const weNutzen = document.getElementById("weNutzen");
+      function fillWeSizes() {
+        weSize.innerHTML = "";
+        let arr = [];
+        if(weType.value==="W1" && weNutzen.value==="E") arr = W1_E_SIZES;
+        else if(weType.value==="W1" && weNutzen.value==="M") arr = W1_M_SIZES;
+        else if(weType.value==="MF" && weNutzen.value==="E") arr = WE_MF_E_SIZES;
+        else arr = WE_MF_M_SIZES;
+        arr.forEach(s => { const o=document.createElement("option"); o.value=s.id; o.textContent=s.label; weSize.appendChild(o); });
+      }
+      fillWeSizes();
+      weType.addEventListener("change", () => { fillWeSizes(); doCalc(); });
+      weNutzen.addEventListener("change", () => { fillWeSizes(); doCalc(); });
+      
+      // Fill BL sizes
+      const blSize = document.getElementById("blSize");
+      const blType = document.getElementById("blType");
+      const blNutzen = document.getElementById("blNutzen");
+      function fillBlSizes() {
+        blSize.innerHTML = "";
+        let arr = [];
+        if(blType.value==="B1" && blNutzen.value==="E") arr = BL_B1_E_SIZES;
+        else if(blType.value==="B1" && blNutzen.value==="M") arr = BL_B1_M_SIZES;
+        else if(blType.value==="MF" && blNutzen.value==="E") arr = BL_MF_E_SIZES;
+        else arr = BL_MF_M_SIZES;
+        arr.forEach(s => { const o=document.createElement("option"); o.value=s.id; o.textContent=s.label; blSize.appendChild(o); });
+      }
+      fillBlSizes();
+      blType.addEventListener("change", () => { fillBlSizes(); doCalc(); });
+      blNutzen.addEventListener("change", () => { fillBlSizes(); doCalc(); });
+      
+      // Fill SB sizes
+      const sbSize = document.getElementById("sbSize");
+      const sbType = document.getElementById("sbType");
+      const sbNutzen = document.getElementById("sbNutzen");
+      function fillSbSizes() {
+        sbSize.innerHTML = "";
+        let arr = [];
+        if(sbType.value==="S1" && sbNutzen.value==="E") arr = SB_S1_E_SIZES;
+        else if(sbType.value==="S1" && sbNutzen.value==="M") arr = SB_S1_M_SIZES;
+        else if(sbType.value==="MF" && sbNutzen.value==="E") arr = SB_MF_E_SIZES;
+        else arr = SB_MF_M_SIZES;
+        arr.forEach(s => { const o=document.createElement("option"); o.value=s.id; o.textContent=s.label; sbSize.appendChild(o); });
+      }
+      fillSbSizes();
+      sbType.addEventListener("change", () => { fillSbSizes(); doCalc(); });
+      sbNutzen.addEventListener("change", () => { fillSbSizes(); doCalc(); });
+      
+      // Fill IW sizes
+      const iwSize = document.getElementById("iwSize");
+      const iwType = document.getElementById("iwType");
+      function fillIwSizes() {
+        iwSize.innerHTML = "";
+        let arr = [];
+        if(iwType.value==="IW1") arr = IW_E_SIZES;
+        else if(iwType.value==="MF") arr = IW_MF_SIZES;
+        else arr = IW_BL_SIZES;
+        arr.forEach(s => { const o=document.createElement("option"); o.value=s.id; o.textContent=s.label; iwSize.appendChild(o); });
+      }
+      fillIwSizes();
+      iwType.addEventListener("change", () => { fillIwSizes(); doCalc(); });
+      
+      // Fill HW sizes
+      const hwSize = document.getElementById("hwSize");
+      const hwType = document.getElementById("hwType");
+      function fillHwSizes() {
+        hwSize.innerHTML = "";
+        let arr = [];
+        if(hwType.value==="HW") arr = HW_E_SIZES;
+        else if(hwType.value==="HWB") arr = HWB_E_SIZES;
+        else arr = HW_M_SIZES;
+        arr.forEach(s => { const o=document.createElement("option"); o.value=s.id; o.textContent=s.label; hwSize.appendChild(o); });
+      }
+      fillHwSizes();
+      hwType.addEventListener("change", () => { fillHwSizes(); doCalc(); });
+      
+      // Fill DTF sizes
+      const dtfSize = document.getElementById("dtfSize");
+      DTF_SIZES.forEach(s => { const o=document.createElement("option"); o.value=s.id; o.textContent=s.label; dtfSize.appendChild(o); });
+      
+      // Fill SR sizes
+      const srSize = document.getElementById("srSize");
+      const srNutzen = document.getElementById("srNutzen");
+      function fillSrSizes() {
+        srSize.innerHTML = "";
+        let arr = srNutzen.value==="E" ? SR_E_SIZES : SR_M_SIZES;
+        arr.forEach(s => { const o=document.createElement("option"); o.value=s.id; o.textContent=s.label; srSize.appendChild(o); });
+      }
+      fillSrSizes();
+      srNutzen.addEventListener("change", () => { fillSrSizes(); doCalc(); });
+      
+      // Tab handling
+      tabs.forEach(tab => {
+        tab.addEventListener("click", () => {
+          tabs.forEach(t => t.classList.remove("active"));
+          tab.classList.add("active");
+          currentTab = tab.dataset.tab;
+          allFields.forEach(f => f.classList.remove("active"));
+          document.getElementById(currentTab.toLowerCase() + "-fields").classList.add("active");
+          doCalc();
+        });
+      });
+      
+      // Option badges
+      document.querySelectorAll('.option-badge input').forEach(input => {
+        input.addEventListener('change', function() {
+          this.parentElement.classList.toggle('checked', this.checked);
+          doCalc();
+        });
+      });
+
+      // ===================== BERECHNUNGSFUNKTION =====================
+      function doCalc() {
+        const vatRate = parseFloat(document.getElementById("vat").value) || VAT_DEFAULT;
+        let unitPrice = 0;
+        let qty = 10;
+        let discount = 0;
+        let productName = "";
+        let details = [];
+        
+        if(currentTab === "WE") {
+          const sizeId = document.getElementById("weSize").value;
+          qty = Math.max(10, parseInt(document.getElementById("weQty").value) || 10);
+          discount = parseFloat(document.getElementById("weDiscount").value) || 0;
+          const type = document.getElementById("weType").value;
+          const nutzen = document.getElementById("weNutzen").value;
+          
+          const idx = getIdx10(qty);
+          let priceMap;
+          if(type==="W1" && nutzen==="E") priceMap = W1_E_PR;
+          else if(type==="W1" && nutzen==="M") priceMap = W1_M_PR;
+          else if(type==="MF" && nutzen==="E") priceMap = WE_MF_E_PR;
+          else priceMap = WE_MF_M_PR;
+          
+          unitPrice = priceMap[sizeId]?.[idx] || 0;
+          productName = type==="W1" ? "W1-Transfers (Einfarbig)" : "WE-Transfers (Mehrfarbig)";
+          
+          const nutzenName = nutzen==="E" ? "Einzelnutzen" : "Mehrfachnutzen";
+          details = [
+            `Produkt: ${productName}`,
+            `Nutzung: ${nutzenName}`,
+            `Format: ${sizeId}`,
+            `Menge: ${qty} Stück`,
+            ``,
+            `Stückpreis: ${eur(unitPrice)}`
+          ];
+          
+          document.getElementById("summaryBadges").innerHTML = `
+            <span class="badge">${productName}</span>
+            <span class="badge">${nutzenName}</span>
+            <span class="badge">${qty} Stk.</span>
+          `;
+        }
+        else if(currentTab === "BL") {
+          const sizeId = document.getElementById("blSize").value;
+          qty = Math.max(10, parseInt(document.getElementById("blQty").value) || 10);
+          discount = parseFloat(document.getElementById("blDiscount").value) || 0;
+          const type = document.getElementById("blType").value;
+          const nutzen = document.getElementById("blNutzen").value;
+          
+          const idx = getIdx10(qty);
+          let priceMap;
+          if(type==="B1" && nutzen==="E") priceMap = BL_B1_E_PR;
+          else if(type==="B1" && nutzen==="M") priceMap = BL_B1_M_PR;
+          else if(type==="MF" && nutzen==="E") priceMap = BL_MF_E_PR;
+          else priceMap = BL_MF_M_PR;
+          
+          unitPrice = priceMap[sizeId]?.[idx] || 0;
+          productName = type==="B1" ? "B1-Transfers (Einfarbig)" : "BL-Transfers (Mehrfarbig)";
+          
+          const nutzenName = nutzen==="E" ? "Einzelnutzen" : "Mehrfachnutzen";
+          details = [
+            `Produkt: ${productName}`,
+            `Nutzung: ${nutzenName}`,
+            `Format: ${sizeId}`,
+            `Menge: ${qty} Stück`,
+            ``,
+            `Stückpreis: ${eur(unitPrice)}`
+          ];
+          
+          document.getElementById("summaryBadges").innerHTML = `
+            <span class="badge">${productName}</span>
+            <span class="badge">${nutzenName}</span>
+            <span class="badge">${qty} Stk.</span>
+          `;
+        }
+        else if(currentTab === "SB") {
+          const sizeId = document.getElementById("sbSize").value;
+          qty = Math.max(10, parseInt(document.getElementById("sbQty").value) || 10);
+          discount = parseFloat(document.getElementById("sbDiscount").value) || 0;
+          const type = document.getElementById("sbType").value;
+          const nutzen = document.getElementById("sbNutzen").value;
+          
+          const idx = getIdx10(qty);
+          let priceMap;
+          if(type==="S1" && nutzen==="E") priceMap = SB_S1_E_PR;
+          else if(type==="S1" && nutzen==="M") priceMap = SB_S1_M_PR;
+          else if(type==="MF" && nutzen==="E") priceMap = SB_MF_E_PR;
+          else priceMap = SB_MF_M_PR;
+          
+          unitPrice = priceMap[sizeId]?.[idx] || 0;
+          productName = type==="S1" ? "S1-Transfers (Einfarbig)" : "SB-Transfers (Mehrfarbig)";
+          
+          const nutzenName = nutzen==="E" ? "Einzelnutzen" : "Mehrfachnutzen";
+          details = [
+            `Produkt: ${productName}`,
+            `Nutzung: ${nutzenName}`,
+            `Format: ${sizeId}`,
+            `Menge: ${qty} Stück`,
+            ``,
+            `Stückpreis: ${eur(unitPrice)}`
+          ];
+          
+          document.getElementById("summaryBadges").innerHTML = `
+            <span class="badge">${productName}</span>
+            <span class="badge">${nutzenName}</span>
+            <span class="badge">${qty} Stk.</span>
+          `;
+        }
+        else if(currentTab === "IW") {
+          const sizeId = document.getElementById("iwSize").value;
+          qty = Math.max(20, parseInt(document.getElementById("iwQty").value) || 20);
+          discount = parseFloat(document.getElementById("iwDiscount").value) || 0;
+          const type = document.getElementById("iwType").value;
+          
+          const idx = getIdxIW(qty);
+          let priceMap;
+          if(type==="IW1") priceMap = IW_E_PR;
+          else if(type==="MF") priceMap = IW_MF_PR;
+          else priceMap = IW_BL_PR;
+          
+          unitPrice = priceMap[sizeId]?.[idx] || 0;
+          productName = type==="IW1" ? "IW1-Transfers (Einfarbig)" : (type==="MF" ? "IW-Transfers (Mehrfarbig)" : "IWB-Transfers (Mit Blocker)");
+          
+          details = [
+            `Produkt: ${productName}`,
+            `Format: ${sizeId}`,
+            `Menge: ${qty} Stück`,
+            `(Mindestmenge: 20 Stück)`,
+            ``,
+            `Stückpreis: ${eur(unitPrice)}`
+          ];
+          
+          document.getElementById("summaryBadges").innerHTML = `
+            <span class="badge">${productName}</span>
+            <span class="badge">${qty} Stk.</span>
+          `;
+        }
+        else if(currentTab === "HW") {
+          const sizeId = document.getElementById("hwSize").value;
+          qty = Math.max(10, parseInt(document.getElementById("hwQty").value) || 10);
+          discount = parseFloat(document.getElementById("hwDiscount").value) || 0;
+          const type = document.getElementById("hwType").value;
+          
+          const idx = getIdx10(qty);
+          let priceMap;
+          if(type==="HW") priceMap = HW_E_PR;
+          else if(type==="HWB") priceMap = HWB_E_PR;
+          else priceMap = HW_M_PR;
+          
+          unitPrice = priceMap[sizeId]?.[idx] || 0;
+          productName = type==="HW" ? "HW-Transfers (Einfarbig)" : (type==="HWB" ? "HWB-Transfers (Mit Blocker)" : "HW-Transfers (Mehrfachnutzen)");
+          
+          details = [
+            `Produkt: ${productName}`,
+            `Format: ${sizeId}`,
+            `Menge: ${qty} Stück`,
+            ``,
+            `Stückpreis: ${eur(unitPrice)}`
+          ];
+          
+          document.getElementById("summaryBadges").innerHTML = `
+            <span class="badge">${productName}</span>
+            <span class="badge">${qty} Stk.</span>
+          `;
+        }
+        else if(currentTab === "DTF") {
+          const sizeId = document.getElementById("dtfSize").value;
+          qty = Math.max(1, parseInt(document.getElementById("dtfQty").value) || 1);
+          discount = parseFloat(document.getElementById("dtfDiscount").value) || 0;
+          
+          const idx = getIdxDTF(qty);
+          unitPrice = DTF_PR[sizeId]?.[idx] || 0;
+          productName = "SupaDTF-Transfers";
+          
+          details = [
+            `Produkt: ${productName}`,
+            `Format: ${sizeId}`,
+            `Menge: ${qty} Stück`,
+            `(Mindestmenge: 1 Stück)`,
+            ``,
+            `Stückpreis: ${eur(unitPrice)}`
+          ];
+          
+          document.getElementById("summaryBadges").innerHTML = `
+            <span class="badge">${productName}</span>
+            <span class="badge">${qty} Stk.</span>
+          `;
+        }
+        else if(currentTab === "SR") {
+          const sizeId = document.getElementById("srSize").value;
+          qty = Math.max(10, parseInt(document.getElementById("srQty").value) || 10);
+          discount = parseFloat(document.getElementById("srDiscount").value) || 0;
+          const nutzen = document.getElementById("srNutzen").value;
+          
+          const idx = getIdxSR(qty);
+          let priceMap = nutzen==="E" ? SR_E_PR : SR_M_PR;
+          
+          unitPrice = priceMap[sizeId]?.[idx] || 0;
+          productName = "SR-Transfers (SupaReflective)";
+          
+          const nutzenName = nutzen==="E" ? "Einzelnutzen" : "Mehrfachnutzen";
+          details = [
+            `Produkt: ${productName}`,
+            `Nutzung: ${nutzenName}`,
+            `Format: ${sizeId}`,
+            `Menge: ${qty} Stück`,
+            ``,
+            `Stückpreis: ${eur(unitPrice)}`
+          ];
+          
+          document.getElementById("summaryBadges").innerHTML = `
+            <span class="badge">${productName}</span>
+            <span class="badge">${nutzenName}</span>
+            <span class="badge">${qty} Stk.</span>
+          `;
+        }
+        
+        // Rabatt anwenden
+        const discountFactor = 1 - (Math.max(0, Math.min(100, discount)) / 100);
+        const unitAfterDiscount = unitPrice * discountFactor;
+        const subtotalNet = unitAfterDiscount * qty;
+        
+        // Versand
+        const shippingNet = subtotalNet >= FREE_SHIP ? 0 : SHIPPING;
+        const totalNet = subtotalNet + shippingNet;
+        const totalVat = totalNet * vatRate;
+        const totalGross = totalNet + totalVat;
+        
+        // Details erweitern
+        if(discount > 0) {
+          details.push(``, `Rabatt: -${discount}%`, `Nach Rabatt: ${eur(unitAfterDiscount)}`);
+        }
+        details.push(``, `───────────────────────`);
+        details.push(`Zwischensumme: ${qty} × ${eur(unitAfterDiscount)} = ${eur(subtotalNet)}`);
+        details.push(`Versand: ${shippingNet > 0 ? eur(shippingNet) : 'KOSTENLOS'}`);
+        details.push(`Netto gesamt: ${eur(totalNet)}`);
+        details.push(`+ MwSt. (${(vatRate*100).toFixed(0)}%): ${eur(totalVat)}`);
+        details.push(`───────────────────────`);
+        details.push(`GESAMT (brutto): ${eur(totalGross)}`);
+        
+        // UI Update
+        document.getElementById("unitPrice").textContent = eur(unitAfterDiscount);
+        document.getElementById("subNet").textContent = eur(subtotalNet);
+        document.getElementById("shipNet").textContent = shippingNet > 0 ? eur(shippingNet) : "KOSTENLOS";
+        document.getElementById("vatAmt").textContent = eur(totalVat);
+        document.getElementById("totalGross").textContent = eur(totalGross);
+        document.getElementById("breakdown").textContent = details.join("\n");
+        
+        // Versandanzeige
+        const shipInfo = document.getElementById("shippingInfo");
+        if(shippingNet > 0) {
+          shipInfo.textContent = "8,50 € (frei ab 100 €)";
+          shipInfo.className = "shipping-display paid";
+        } else {
+          shipInfo.textContent = "KOSTENLOS ✓";
+          shipInfo.className = "shipping-display free";
+        }
+      }
+      
+      // Event Listeners
+      document.getElementById("btnCalc").addEventListener("click", doCalc);
+      
+      // Auto-Update bei Änderungen
+      document.querySelectorAll("input, select").forEach(el => {
+        el.addEventListener("change", doCalc);
+        el.addEventListener("input", doCalc);
+      });
+      
+      // Initial
+      doCalc();
+      
+      // PDF Export
+      document.getElementById("btnPDF").addEventListener("click", async () => {
+        alert("PDF Export wird vorbereitet...");
+      });
+    });
+  </script>
+</body>
+</html>
+
